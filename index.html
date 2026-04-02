@@ -18,6 +18,264 @@
             --color-eye-deep: #113b43;
 
             --bg-color: var(--color-brown-dark);
+            --card-bg: rgba(48, 33, 24, 0.9); /* Un poco de transparencia para ver el fondo */
+            --accent-color: var(--color-atol-blue);
+            --text-main: var(--color-cream);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            /* Fondo de tu Carrd (Textura sutil) */
+            background-image: url('https://assets.carrd.co/scripts/common/bg.png'), 
+                              linear-gradient(180deg, var(--color-brown-dark) 0%, #000000 100%);
+            color: var(--text-main);
+            font-family: 'Lexend', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Animación de Lluvia Lateral --- */
+        #rainCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.25; /* Ajustado para que no distraiga de la lectura */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 40px rgba(0, 131, 145, 0.4);
+            object-fit: cover;
+            margin-bottom: 25px;
+            background-color: var(--color-brown-light);
+        }
+
+        .tifinagh-title {
+            font-family: 'Noto Sans Tifinagh', serif;
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(5px); /* Efecto cristal para ver la lluvia detrás */
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid var(--color-brown-light);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--color-eye-deep);
+            padding-bottom: 10px;
+        }
+
+        .hobby-tag {
+            background: var(--color-eye-deep);
+            color: var(--color-cream);
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            border: 1px solid var(--accent-color);
+            display: inline-block;
+            margin: 5px;
+        }
+
+        .fursona-spec {
+            background: rgba(23, 9, 1, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+            padding: 8px 16px;
+            background: var(--color-brown-light);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: var(--color-cream);
+        }
+
+        .footer-icons {
+            font-size: 2.2rem;
+            margin: 40px 0;
+            text-align: center;
+            color: var(--accent-color);
+            letter-spacing: 10px;
+        }
+
+        strong { color: var(--accent-color); }
+    </style>
+</head>
+<body>
+
+    <canvas id="rainCanvas"></canvas>
+
+    <div class="container">
+        <header>
+            <img src="https://erizigh.carrd.co/assets/images/image01.jpg" alt="Erizigh" class="profile-img">
+            <div class="tifinagh-title">ⵉⴽⵊ</div>
+            <h1 style="color: var(--color-cream); font-size: 2.5rem;">Erizigh</h1>
+            <p style="color: var(--accent-color); font-weight: bold; letter-spacing: 3px; margin-top: 5px;">
+                ⵣ Anthrorigen Otter-Roo ⵣ
+            </p>
+        </header>
+
+        <section class="card">
+            <h2><i class="fas fa-hand-peace"></i> Introducción</h2>
+            <p>Soy una persona <strong>tranquila pero activa</strong>. Me considero bastante inquieto, con ganas constantes de aprender y hacer cosas nuevas, siempre que el entorno acompañe.</p>
+            <p style="margin-top: 15px;">Me encanta conocer gente, compartir mis gustos y descubrir los de los demás. Estoy encantado de conocer y que me conozcan con total naturalidad y respeto.</p>
+        </section>
+
+        <section class="card">
+            <h2><i class="fas fa-heart"></i> Hobbies</h2>
+            <div class="hobbies-grid">
+                <span class="hobby-tag">⛰️ Senderismo</span>
+                <span class="hobby-tag">🏊 Natación</span>
+                <span class="hobby-tag">🗺️ Exploración</span>
+                <span class="hobby-tag">🧗 Aventura</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><i class="fas fa-dna"></i> Mi Fursona</h2>
+            <div class="fursona-spec">
+                <p><strong>ESPECIE:</strong> Nutria híbrida con Canguro y pinceladas de otras especies.</p>
+                <p><strong>PELAJE:</strong> Marrón oscuro exterior y claro interior con rayas estilo jurásico/aborigen en <strong>Azul Atolón</strong>.</p>
+                
+                <div style="margin-top: 20px; display: flex; flex-wrap: wrap;">
+                    <span class="feature-tag">☯️ Shapeshifter</span>
+                    <span class="feature-tag">🪶 Therian Furry</span>
+                    <span class="feature-tag">🐾 Werecreature</span>
+                </div>
+            </div>
+
+            <p style="margin-top: 30px; text-align: center; font-style: italic; color: var(--accent-color); font-size: 1.2rem;">
+                🌀 ⴷⵍⵜⴼⴽⴱⴿⵊⵒⵉⵍ ⴱⵜⵜⵉⴽ 🌱
+            </p>
+        </section>
+
+        <div class="footer-icons">ⵣ ✌🏾 🦘 🦦</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('rainCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const raindrops = [];
+        // Color de la lluvia igual al de las letras (Crema)
+        const rainColor = '#f1cea8'; 
+
+        class RainDrop {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * (canvas.width + 200); // Empezar un poco más a la derecha por la inclinación
+                this.y = Math.random() * -canvas.height;
+                this.length = Math.random() * 25 + 15; // Líneas más largas
+                this.speed = Math.random() * 10 + 5;   // Un poco más rápida
+                this.opacity = Math.random() * 0.4;
+                this.thickness = Math.random() * 2 + 1; // Líneas más gruesas
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.strokeStyle = rainColor;
+                ctx.lineWidth = this.thickness;
+                ctx.globalAlpha = this.opacity;
+                ctx.lineCap = 'round';
+                ctx.moveTo(this.x, this.y);
+                // Dibujamos la línea con inclinación lateral (x - 10)
+                ctx.lineTo(this.x - 15, this.y + this.length);
+                ctx.stroke();
+            }
+            update() {
+                this.y += this.speed;
+                this.x -= 3; // Movimiento lateral constante hacia la izquierda
+                
+                if (this.y > canvas.height || this.x < -20) {
+                    this.reset();
+                }
+                this.draw();
+            }
+        }
+
+        // Crear gotas
+        for (let i = 0; i < 120; i++) {
+            raindrops.push(new RainDrop());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            raindrops.forEach(drop => drop.update());
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        animate();
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ⵉⴽⵊ | 🦘 Anthrorigen Otter 🦦</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;700&family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* Tu Paleta de Colores Fursona */
+            --color-cream: #f1cea8;
+            --color-brown-light: #634331;
+            --color-brown-med: #302118;
+            --color-brown-dark: #170901;
+            --color-atol-blue: #008391;
+            --color-eye-deep: #113b43;
+
+            --bg-color: var(--color-brown-dark);
             --card-bg: var(--color-brown-med);
             --accent-color: var(--color-atol-blue);
             --text-main: var(--color-cream);
