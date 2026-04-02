@@ -3,196 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erizigh | Personal Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Erizigh | Nutria-Canguro Híbrida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;700&family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
             --bg-color: #0f0f0f;
             --card-bg: #1a1a1a;
-            --accent-color: #00d4ff; /* El azul cian de tu fursona */
+            --accent-color: #00d4ff; /* Azul Atolón */
+            --fur-brown: #4e342e;    /* Marrón Oscuro */
             --text-main: #ffffff;
-            --text-dim: #b0b0b0;
+            --text-dim: #d1d1d1;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
             font-family: 'Lexend', sans-serif;
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
-        /* Fondo con un ligero gradiente */
-        .background-glow {
+        .background-pattern {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% -20%, #00d4ff22, transparent 50%);
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.05), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(78, 52, 46, 0.1), transparent 40%);
             z-index: -1;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 750px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
-        /* --- Header / Perfil --- */
         header {
             text-align: center;
-            margin-bottom: 50px;
-            animation: fadeIn 1s ease-out;
+            margin-bottom: 40px;
         }
 
         .profile-img {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             border: 4px solid var(--accent-color);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
             object-fit: cover;
             margin-bottom: 20px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            letter-spacing: -1px;
-        }
-
-        .tagline {
+        .tifinagh {
+            font-family: 'Noto Sans Tifinagh', serif;
             color: var(--accent-color);
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            margin-top: 10px;
         }
 
-        /* --- Secciones --- */
         .card {
             background: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid #333;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border-left: 5px solid var(--accent-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         h2 {
+            font-size: 1.4rem;
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             color: var(--accent-color);
         }
 
-        p {
-            color: var(--text-dim);
-            margin-bottom: 10px;
+        .hobbies-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
         }
 
-        /* --- Enlaces / Redes --- */
-        .social-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
+        .hobby-tag {
+            background: #252525;
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            border: 1px solid #333;
         }
 
-        .btn {
+        .fursona-box {
+            background: linear-gradient(145deg, #1e1e1e, #141414);
+            border: 1px solid #333;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            padding: 8px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+        }
+
+        .social-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 12px;
-            background: #222;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            border: 1px solid #444;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
+            padding: 15px;
             background: var(--accent-color);
             color: #000;
+            text-decoration: none;
+            border-radius: 12px;
             font-weight: bold;
+            transition: 0.3s;
+            margin-top: 20px;
         }
 
-        /* --- Animaciones --- */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .social-btn:hover {
+            filter: brightness(1.2);
+            transform: scale(1.02);
         }
 
-        /* Estilo para etiquetas (especie, orientación, etc.) */
-        .badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #333;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            color: var(--accent-color);
+        .footer-icons {
+            font-size: 1.5rem;
+            margin-top: 30px;
+            text-align: center;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
 
-    <div class="background-glow"></div>
+    <div class="background-pattern"></div>
 
     <div class="container">
         <header>
             <img src="https://erizigh.carrd.co/assets/images/image01.jpg" alt="Erizigh" class="profile-img">
             <h1>Erizigh</h1>
-            <p class="tagline">Hedgehog | Gamer | Creative</p>
+            <p class="tifinagh">ⵣ</p>
         </header>
 
         <section class="card">
-            <h2><i class="fas fa-user"></i> Sobre mí</h2>
-            <p>¡Hola! Soy Erizigh, un erizo antro que disfruta de la tecnología, el arte y la comunidad furry.</p>
-            <div class="badges">
-                <span class="badge">Especie: Erizo</span>
-                <span class="badge">Pronombres: Él/He</span>
-                <span class="badge">📍 España</span>
-            </div>
+            <h2><i class="fas fa-hand-peace"></i> Introducción</h2>
+            <p>Soy una persona tranquila pero activa. Soy bastante inquieto con ganas de aprender y hacer cosas, siempre que las condiciones ayuden a ello. También me gusta conocer gente, compartir mis gustos con ellos y viceversa, si tengo interés en ello.</p>
+            <p style="margin-top: 10px;">Estoy encantado de conocer y que me conozcan quien lo desee sin problema. He leído y estoy de acuerdo con las normas, es más, me gusta la tónica y filosofía que tiene el grupo.</p>
         </section>
 
         <section class="card">
-            <h2><i class="fas fa-paw"></i> Mi Fursona</h2>
-            <p>Mi diseño se basa principalmente en tonos oscuros con contrastes eléctricos. Me encanta la estética moderna y un poco ciberpunk.</p>
-            <p><i>"Pequeño, pero con pinchos bien afilados."</i></p>
+            <h2><i class="fas fa-hiking"></i> Hobbies</h2>
+            <p>Me gusta hacer de todo, pero sobre todo, actividades al aire libre y deportivas:</p>
+            <div class="hobbies-grid">
+                <span class="hobby-tag">⛰️ Senderismo</span>
+                <span class="hobby-tag">🏊 Natación</span>
+                <span class="hobby-tag">🗺️ Exploración</span>
+                <span class="hobby-tag">🧗 Aventura</span>
+            </div>
         </section>
 
-        <div class="social-links">
-            <a href="https://barq.app/@Erizigh" class="btn" target="_blank">
-                <i class="fas fa-dog"></i> BARQ
-            </a>
-            <a href="https://erizigh.carrd.co" class="btn" target="_blank">
-                <i class="fas fa-link"></i> Carrd
-            </a>
-            <a href="https://twitter.com/TuUsuario" class="btn" target="_blank">
-                <i class="fab fa-twitter"></i> Twitter/X
-            </a>
-            <a href="mailto:tu-email@ejemplo.com" class="btn">
-                <i class="fas fa-envelope"></i> Contacto
-            </a>
+        <section class="card fursona-box">
+            <h2><i class="fas fa-paw"></i> Mi Fursona</h2>
+            <p><strong>Especie:</strong> Nutria híbrida con canguro, con pinceladas de otras especies.</p>
+            <p><strong>Pelaje:</strong> Marrón oscuro por fuera y claro por dentro, con rayas estilo jurásico/aborigen en azul atolón.</p>
+            
+            <div style="margin-top: 20px;">
+                <div class="feature-item"><span>☯️</span> Shapeshifter</div>
+                <div class="feature-item"><span>🪶</span> Therian Furry</div>
+                <div class="feature-item"><span>🐾</span> Werecreature</div>
+            </div>
+
+            <p style="margin-top: 20px; text-align: center; font-style: italic; color: var(--accent-color);">
+                🌀 ⴷⵍⵜⴼⴽⴱⴿⵊⵒⵉⵍ ⴱⵜⵜⵉⴽ 🌱
+            </p>
+        </section>
+
+        <a href="https://barq.app/@Erizigh" class="social-btn" target="_blank">
+            <i class="fas fa-external-link-alt"></i> Visítame en BARQ
+        </a>
+
+        <div class="footer-icons">
+            ⵣ ✌🏾 🦘 🦦
         </div>
 
-        <footer style="text-align: center; margin-top: 50px; color: #555; font-size: 0.8rem;">
-            <p>© 2024 Erizigh - Hecho con 💙 y HTML/CSS</p>
+        <footer style="text-align: center; margin-top: 40px; color: #555; font-size: 0.8rem;">
+            <p>erizigh.github.io</p>
         </footer>
     </div>
 
