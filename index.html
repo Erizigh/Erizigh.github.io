@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            /* Tu Paleta de Colores Fursona */
             --color-cream: #f1cea8;
             --color-brown-light: #634331;
             --color-brown-med: #302118;
@@ -18,7 +17,7 @@
             --color-eye-deep: #113b43;
 
             --bg-color: var(--color-brown-dark);
-            --card-bg: rgba(48, 33, 24, 0.9); /* Un poco de transparencia para ver el fondo */
+            --card-bg: rgba(23, 9, 1, 0.85); /* Más oscuro y opaco para leer sobre la foto */
             --accent-color: var(--color-atol-blue);
             --text-main: var(--color-cream);
         }
@@ -27,16 +26,17 @@
 
         body {
             background-color: var(--bg-color);
-            /* Fondo de tu Carrd (Textura sutil) */
-            background-image: url('https://assets.carrd.co/scripts/common/bg.png'), 
-                              linear-gradient(180deg, var(--color-brown-dark) 0%, #000000 100%);
+            /* AQUÍ SE INCLUYE TU FOTO */
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* La foto se queda fija al bajar */
             color: var(--text-main);
             font-family: 'Lexend', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* --- Animación de Lluvia Lateral --- */
         #rainCanvas {
             position: fixed;
             top: 0;
@@ -45,7 +45,7 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.25; /* Ajustado para que no distraiga de la lectura */
+            opacity: 0.4;
         }
 
         .container {
@@ -66,27 +66,20 @@
             height: 180px;
             border-radius: 50%;
             border: 4px solid var(--accent-color);
-            box-shadow: 0 0 40px rgba(0, 131, 145, 0.4);
+            box-shadow: 0 0 40px rgba(0, 131, 145, 0.6);
             object-fit: cover;
             margin-bottom: 25px;
             background-color: var(--color-brown-light);
         }
 
-        .tifinagh-title {
-            font-family: 'Noto Sans Tifinagh', serif;
-            color: var(--accent-color);
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-
         .card {
             background: var(--card-bg);
-            backdrop-filter: blur(5px); /* Efecto cristal para ver la lluvia detrás */
+            backdrop-filter: blur(8px); /* Aumentamos el desenfoque para que resalte el texto */
             border-radius: 24px;
             padding: 35px;
             margin-bottom: 30px;
-            border: 1px solid var(--color-brown-light);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border: 1px solid rgba(241, 206, 168, 0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
         }
 
         h2 {
@@ -96,7 +89,7 @@
             align-items: center;
             gap: 15px;
             color: var(--accent-color);
-            border-bottom: 2px solid var(--color-eye-deep);
+            border-bottom: 2px solid var(--accent-color);
             padding-bottom: 10px;
         }
 
@@ -112,7 +105,7 @@
         }
 
         .fursona-spec {
-            background: rgba(23, 9, 1, 0.6);
+            background: rgba(0, 0, 0, 0.4);
             padding: 25px;
             border-radius: 15px;
             border-left: 5px solid var(--accent-color);
@@ -127,7 +120,6 @@
             background: var(--color-brown-light);
             border-radius: 10px;
             font-size: 0.9rem;
-            color: var(--color-cream);
         }
 
         .footer-icons {
@@ -136,6 +128,7 @@
             text-align: center;
             color: var(--accent-color);
             letter-spacing: 10px;
+            text-shadow: 0 0 15px black;
         }
 
         strong { color: var(--accent-color); }
@@ -148,9 +141,8 @@
     <div class="container">
         <header>
             <img src="https://erizigh.carrd.co/assets/images/image01.jpg" alt="Erizigh" class="profile-img">
-            <div class="tifinagh-title">ⵉⴽⵊ</div>
-            <h1 style="color: var(--color-cream); font-size: 2.5rem;">Erizigh</h1>
-            <p style="color: var(--accent-color); font-weight: bold; letter-spacing: 3px; margin-top: 5px;">
+            <h1 style="color: var(--color-cream); font-size: 2.5rem; text-shadow: 2px 2px 10px black;">Erizigh</h1>
+            <p style="color: var(--accent-color); font-weight: bold; letter-spacing: 3px; text-shadow: 1px 1px 5px black;">
                 ⵣ Anthrorigen Otter-Roo ⵣ
             </p>
         </header>
@@ -183,8 +175,7 @@
                     <span class="feature-tag">🐾 Werecreature</span>
                 </div>
             </div>
-
-            <p style="margin-top: 30px; text-align: center; font-style: italic; color: var(--accent-color); font-size: 1.2rem;">
+            <p style="margin-top: 30px; text-align: center; font-style: italic; color: var(--accent-color); font-size: 1.2rem; text-shadow: 1px 1px 5px black;">
                 🌀 ⴷⵍⵜⴼⴽⴱⴿⵊⵒⵉⵍ ⴱⵜⵜⵉⴽ 🌱
             </p>
         </section>
@@ -195,25 +186,20 @@
     <script>
         const canvas = document.getElementById('rainCanvas');
         const ctx = canvas.getContext('2d');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         const raindrops = [];
-        // Color de la lluvia igual al de las letras (Crema)
         const rainColor = '#f1cea8'; 
 
         class RainDrop {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
-                this.x = Math.random() * (canvas.width + 200); // Empezar un poco más a la derecha por la inclinación
+                this.x = Math.random() * (canvas.width + 200);
                 this.y = Math.random() * -canvas.height;
-                this.length = Math.random() * 25 + 15; // Líneas más largas
-                this.speed = Math.random() * 10 + 5;   // Un poco más rápida
-                this.opacity = Math.random() * 0.4;
-                this.thickness = Math.random() * 2 + 1; // Líneas más gruesas
+                this.length = Math.random() * 25 + 15;
+                this.speed = Math.random() * 8 + 4;
+                this.opacity = Math.random() * 0.5;
+                this.thickness = Math.random() * 2.5 + 1;
             }
             draw() {
                 ctx.beginPath();
@@ -222,37 +208,27 @@
                 ctx.globalAlpha = this.opacity;
                 ctx.lineCap = 'round';
                 ctx.moveTo(this.x, this.y);
-                // Dibujamos la línea con inclinación lateral (x - 10)
-                ctx.lineTo(this.x - 15, this.y + this.length);
+                ctx.lineTo(this.x - 18, this.y + this.length);
                 ctx.stroke();
             }
             update() {
                 this.y += this.speed;
-                this.x -= 3; // Movimiento lateral constante hacia la izquierda
-                
-                if (this.y > canvas.height || this.x < -20) {
-                    this.reset();
-                }
+                this.x -= 2.5;
+                if (this.y > canvas.height || this.x < -20) { this.reset(); }
                 this.draw();
             }
         }
 
-        // Crear gotas
-        for (let i = 0; i < 120; i++) {
-            raindrops.push(new RainDrop());
-        }
-
+        for (let i = 0; i < 100; i++) { raindrops.push(new RainDrop()); }
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             raindrops.forEach(drop => drop.update());
             requestAnimationFrame(animate);
         }
-
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-
         animate();
     </script>
 </body>
