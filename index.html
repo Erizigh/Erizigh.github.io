@@ -34,18 +34,16 @@
             font-family: 'Lexend', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* --- EFECTO CAÚSTICO DE AGUA (CSS Puro) --- */
+        /* Efecto de reflejos de agua */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: 
                 radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
-                radial-gradient(circle at 20% 80%, rgba(0, 131, 145, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 131, 145, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 80%, rgba(0, 131, 145, 0.08) 0%, transparent 50%);
             background-size: 150% 150%;
             z-index: -1;
             pointer-events: none;
@@ -61,13 +59,10 @@
 
         #riverCanvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             pointer-events: none;
-            opacity: 0.3; /* Muy sutil */
+            opacity: 0.3;
         }
 
         .container {
@@ -92,12 +87,6 @@
             object-fit: cover;
             margin-bottom: 25px;
             background-color: var(--color-brown-light);
-            transition: transform 0.5s ease, box-shadow 0.3s ease;
-        }
-
-        .profile-img:hover { 
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 10px 60px rgba(0, 131, 145, 0.9);
         }
 
         .card {
@@ -108,12 +97,6 @@
             margin-bottom: 30px;
             border: 1px solid rgba(241, 206, 168, 0.08);
             box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(0, 131, 145, 0.3);
         }
 
         h2 {
@@ -156,13 +139,31 @@
             font-size: 0.9rem;
         }
 
-        .footer-icons {
-            font-size: 2.5rem;
+        /* Estilo específico para los nuevos recuadros inferiores */
+        .footer-card {
             text-align: center;
-            margin-top: 40px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .link-style {
             color: var(--accent-color);
-            text-shadow: 0 0 20px rgba(0, 131, 145, 0.8);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .link-style:hover {
+            color: var(--color-cream);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .footer-icons {
+            font-size: 2.2rem;
+            color: var(--accent-color);
             letter-spacing: 15px;
+            display: block;
+            margin: 10px 0;
         }
 
         strong { color: var(--accent-color); }
@@ -215,32 +216,36 @@
             </p>
         </section>
 
-        <div class="footer-icons">ⵣ ✌🏾 🦘 🦦 🌊</div>
+        <section class="card footer-card">
+            <h2><i class="fas fa-link"></i> Enlaces</h2>
+            <p>Puedes encontrarme también en: 
+                <a href="https://erizigh.carrd.co" target="_blank" class="link-style">erizigh.carrd.co</a>
+            </p>
+        </section>
+
+        <section class="card footer-card">
+            <div class="footer-icons">ⵣ ✌🏾 🦘 🦦 🌊</div>
+        </section>
+
     </div>
 
     <script>
         const canvas = document.getElementById('riverCanvas');
         const ctx = canvas.getContext('2d');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
         const particles = [];
-        // Color Crema para que parezca polen o luz filtrada
         const particleColor = '#f1cea8'; 
 
         class Particle {
-            constructor() {
-                this.reset();
-            }
+            constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5; // Muy finas
-                this.speedX = Math.random() * 0.4 - 0.2; // Movimiento LENTÍSIMO
-                this.speedY = Math.random() * -0.6 - 0.1; // Ascenso suave
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * -0.6 - 0.1;
                 this.opacity = Math.random() * 0.4 + 0.1;
-                this.life = Math.random() * 100;
             }
             draw() {
                 ctx.beginPath();
@@ -252,32 +257,23 @@
             update() {
                 this.y += this.speedY;
                 this.x += this.speedX;
-
-                // Si se salen de la pantalla, reaparecen por el otro lado
                 if (this.x > canvas.width) this.x = 0;
                 if (this.x < 0) this.x = canvas.width;
                 if (this.y < -10) this.y = canvas.height + 10;
-
                 this.draw();
             }
         }
 
-        // Creamos solo 50 partículas para que sea muy sutil
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle());
-        }
-
+        for (let i = 0; i < 50; i++) { particles.push(new Particle()); }
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
-
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-
         animate();
     </script>
 </body>
