@@ -9,12 +9,19 @@
     
     <style>
         :root {
-            --bg-color: #0f0f0f;
-            --card-bg: #1a1a1a;
-            --accent-color: #00d4ff; /* Azul Atolón */
-            --fur-brown: #4e342e;    /* Marrón Oscuro */
-            --text-main: #ffffff;
-            --text-dim: #d1d1d1;
+            /* Tu Paleta de Colores Fursona */
+            --color-cream: #f1cea8;
+            --color-brown-light: #634331;
+            --color-brown-med: #302118;
+            --color-brown-dark: #170901;
+            --color-atol-blue: #008391;
+            --color-eye-deep: #113b43;
+
+            --bg-color: var(--color-brown-dark);
+            --card-bg: var(--color-brown-med);
+            --accent-color: var(--color-atol-blue);
+            --text-main: var(--color-cream);
+            --text-dim: #b0a090;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,21 +31,27 @@
             color: var(--text-main);
             font-family: 'Lexend', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        .background-pattern {
+        /* --- Animación de Lluvia --- */
+        #rainCanvas {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(0, 212, 255, 0.07), transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(78, 52, 46, 0.12), transparent 40%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
+            pointer-events: none;
+            opacity: 0.4;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 60px 20px;
+            position: relative;
+            z-index: 1;
         }
 
         header {
@@ -51,34 +64,30 @@
             height: 180px;
             border-radius: 50%;
             border: 4px solid var(--accent-color);
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.25);
+            box-shadow: 0 0 40px rgba(0, 131, 145, 0.3);
             object-fit: cover;
             margin-bottom: 25px;
+            background-color: var(--color-brown-light);
         }
 
         .tifinagh-title {
             font-family: 'Noto Sans Tifinagh', serif;
             color: var(--accent-color);
-            font-size: 1.5rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px rgba(0, 131, 145, 0.5);
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 24px;
+            border-radius: 20px;
             padding: 35px;
             margin-bottom: 30px;
-            border: 1px solid #2a2a2a;
-            position: relative;
-            overflow: hidden;
+            border: 1px solid var(--color-brown-light);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
         }
 
-        .card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 6px; height: 100%;
-            background: var(--accent-color);
-        }
+        .card:hover { transform: translateY(-3px); }
 
         h2 {
             font-size: 1.5rem;
@@ -87,43 +96,26 @@
             align-items: center;
             gap: 15px;
             color: var(--accent-color);
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .info-item b {
-            color: var(--accent-color);
-            display: block;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .hobbies-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 20px;
+            border-bottom: 2px solid var(--color-eye-deep);
+            padding-bottom: 10px;
         }
 
         .hobby-tag {
-            background: rgba(0, 212, 255, 0.1);
+            background: var(--color-eye-deep);
+            color: var(--color-cream);
             padding: 8px 18px;
-            border-radius: 12px;
+            border-radius: 50px;
             font-size: 0.9rem;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            display: inline-block;
+            margin: 5px;
         }
 
-        .fursona-details {
-            background: rgba(255,255,255,0.02);
+        .fursona-spec {
+            background: var(--color-brown-dark);
             padding: 20px;
-            border-radius: 15px;
-            margin-top: 15px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
         }
 
         .feature-tag {
@@ -131,94 +123,130 @@
             align-items: center;
             gap: 8px;
             margin: 5px;
-            padding: 5px 12px;
-            background: #252525;
+            padding: 6px 14px;
+            background: var(--color-brown-light);
             border-radius: 8px;
             font-size: 0.9rem;
+            color: var(--color-cream);
         }
 
         .footer-icons {
             font-size: 2rem;
             margin: 40px 0;
             text-align: center;
-            letter-spacing: 15px;
+            color: var(--accent-color);
         }
 
-        p { color: var(--text-dim); margin-bottom: 15px; }
-        strong { color: var(--text-main); }
+        strong { color: var(--accent-color); }
     </style>
 </head>
 <body>
 
-    <div class="background-pattern"></div>
+    <canvas id="rainCanvas"></canvas>
 
     <div class="container">
         <header>
-            <img src="https://erizigh.carrd.co/assets/images/image01.jpg" alt="Erizigh Avatar" class="profile-img">
+            <img src="https://erizigh.carrd.co/assets/images/image01.jpg" alt="Erizigh" class="profile-img">
             <div class="tifinagh-title">ⵉⴽⵊ</div>
             <h1>Erizigh</h1>
-            <p style="color: var(--accent-color); font-weight: bold; letter-spacing: 2px;">
+            <p style="color: var(--color-cream); opacity: 0.8; letter-spacing: 2px;">
                 ⵣ Anthrorigen Otter-Roo ⵣ
             </p>
         </header>
 
         <section class="card">
-            <h2><i class="fas fa-comment-dots"></i> Presentación</h2>
-            <p>Soy una persona <strong>tranquila pero activa</strong>. Me considero bastante inquieto, siempre con ganas de aprender y emprender nuevos proyectos, siempre que el entorno y las condiciones acompañen.</p>
-            <p>Me encanta conocer gente nueva, intercambiar perspectivas y compartir aficiones de forma recíproca. Estoy totalmente abierto a que me conozcan y a conocer a quien lo desee con respeto y naturalidad.</p>
-            <p><i>Valoro mucho la buena tónica y la filosofía de comunidad basada en el respeto mutuo.</i></p>
+            <h2><i class="fas fa-hand-peace"></i> Introducción</h2>
+            <p>Soy una persona <strong>tranquila pero activa</strong>. Inquieto por naturaleza, con ganas constantes de aprender y descubrir, siempre que las condiciones lo permitan.</p>
+            <p>Me encanta conectar con los demás, compartir experiencias y gustos de forma recíproca. Estoy encantado de conocer y que me conozcan con total naturalidad.</p>
         </section>
 
         <section class="card">
-            <h2><i class="fas fa-user-astronaut"></i> Perfil Personal</h2>
-            <div class="info-grid">
-                <div class="info-item"><b>Personalidad</b>Inquieto, curioso y sociable</div>
-                <div class="info-item"><b>Ubicación</b>España</div>
-                <div class="info-item"><b>Intereses</b>Naturaleza, Arte, Tecnología</div>
-                <div class="info-item"><b>Identidad</b>Therian & Werecreature</div>
-            </div>
-        </section>
-
-        <section class="card">
-            <h2><i class="fas fa-heart"></i> Hobbies & Actividades</h2>
-            <p>Disfruto especialmente de las actividades que me mantienen en movimiento y en contacto con el entorno:</p>
+            <h2><i class="fas fa-hiking"></i> Hobbies</h2>
             <div class="hobbies-grid">
-                <span class="hobby-tag"><i class="fas fa-mountain"></i> Senderismo</span>
-                <span class="hobby-tag"><i class="fas fa-water"></i> Natación</span>
-                <span class="hobby-tag"><i class="fas fa-compass"></i> Exploración</span>
-                <span class="hobby-tag"><i class="fas fa-fist-raised"></i> Aventura</span>
-                <span class="hobby-tag"><i class="fas fa-gamepad"></i> Gaming</span>
+                <span class="hobby-tag">⛰️ Senderismo</span>
+                <span class="hobby-tag">🏊 Natación</span>
+                <span class="hobby-tag">🗺️ Exploración</span>
+                <span class="hobby-tag">🧗 Aventura</span>
             </div>
         </section>
 
         <section class="card">
-            <h2><i class="fas fa-dna"></i> Mi Fursona: ⵉⴽⵊ</h2>
-            <p>Mi identidad furry es una amalgama única. Soy una <strong>Nutria híbrida con Canguro</strong>, aunque mi diseño incorpora pinceladas de otras especies que terminan de darme forma.</p>
+            <h2><i class="fas fa-dna"></i> Identidad Híbrida</h2>
+            <div class="fursona-spec">
+                <p><strong>Especie:</strong> Nutria-Canguro con matices de otras especies.</p>
+                <p><strong>Pelaje:</strong> Exterior marrón oscuro (`#170901`) e interior claro (`#f1cea8`).</p>
+                <p><strong>Marcas:</strong> Rayas estilo jurásico/aborigen en **Azul Atolón**.</p>
+            </div>
             
-            <div class="fursona-details">
-                <p><strong><i class="fas fa-palette"></i> Colores y Pelaje:</strong></p>
-                <p>Presento un pelaje bitonal: marrón oscuro en el exterior y un tono más claro en la zona interior. Lo que más me define son mis <strong>rayas de estilo jurásico/aborigen</strong> en un vibrante color <strong>Azul Atolón</strong>.</p>
-                
-                <div style="margin-top: 15px;">
-                    <span class="feature-tag">☯️ Shapeshifter</span>
-                    <span class="feature-tag">🪶 Therian Furry</span>
-                    <span class="feature-tag">🐾 Werecreature</span>
-                </div>
+            <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;">
+                <span class="feature-tag">☯️ Shapeshifter</span>
+                <span class="feature-tag">🪶 Therian Furry</span>
+                <span class="feature-tag">🐾 Werecreature</span>
             </div>
 
-            <p style="margin-top: 25px; text-align: center; font-style: italic; color: var(--accent-color); font-family: 'Noto Sans Tifinagh';">
+            <p style="margin-top: 25px; text-align: center; font-style: italic; color: var(--accent-color);">
                 🌀 ⴷⵍⵜⴼⴽⴱⴿⵊⵒⵉⵍ ⴱⵜⵜⵉⴽ 🌱
             </p>
         </section>
 
-        <div class="footer-icons">
-            ⵣ ✌🏾 🦘 🦦
-        </div>
-
-        <footer style="text-align: center; padding-bottom: 20px; color: #444; font-size: 0.9rem;">
-            <p>Diseñado para erizigh.github.io</p>
-        </footer>
+        <div class="footer-icons">ⵣ ✌🏾 🦘 🦦</div>
     </div>
 
+    <script>
+        const canvas = document.getElementById('rainCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const raindrops = [];
+        const rainColor = '#008391'; // Color azul atolón para la lluvia
+
+        class RainDrop {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * -canvas.height;
+                this.length = Math.random() * 20 + 10;
+                this.speed = Math.random() * 5 + 2;
+                this.opacity = Math.random() * 0.5;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.strokeStyle = rainColor;
+                ctx.lineWidth = 1;
+                ctx.globalAlpha = this.opacity;
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x, this.y + this.length);
+                ctx.stroke();
+            }
+            update() {
+                this.y += this.speed;
+                if (this.y > canvas.height) {
+                    this.reset();
+                }
+                this.draw();
+            }
+        }
+
+        for (let i = 0; i < 150; i++) {
+            raindrops.push(new RainDrop());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            raindrops.forEach(drop => drop.update());
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        animate();
+    </script>
 </body>
 </html>
