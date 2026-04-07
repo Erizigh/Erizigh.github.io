@@ -59,7 +59,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* --- HEADER ARTÍSTICO (FORMA DE PIEDRA/MONTAÑA) --- */
+        /* --- HEADER EFECTO MONTAÑA --- */
         header {
             text-align: center;
             margin-bottom: 60px;
@@ -67,11 +67,12 @@
             flex-direction: column;
             align-items: center;
             position: relative;
+            padding-top: 40px;
         }
 
         .profile-img {
-            width: 160px;
-            height: 160px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 4px solid var(--accent-color);
             box-shadow: 0 0 30px rgba(0, 131, 145, 0.5);
@@ -79,59 +80,60 @@
             z-index: 3;
             background-color: var(--color-brown-light);
             transition: transform 0.5s ease;
+            position: absolute;
+            top: 0;
         }
 
-        .profile-img:hover {
-            transform: rotate(5deg) scale(1.05);
-        }
-
-        .header-shape-container {
-            margin-top: -80px; /* Sube para envolver parte del avatar */
-            padding: 100px 40px 40px 40px;
-            background: var(--card-bg);
+        .mountain-container {
+            margin-top: 60px;
+            padding: 110px 40px 50px 40px;
+            background: linear-gradient(180deg, rgba(48, 33, 24, 0.9) 0%, var(--card-bg) 100%);
             backdrop-filter: blur(15px);
-            /* Forma de piedra orgánica */
-            border-radius: 60% 40% 70% 30% / 30% 70% 30% 70%;
-            border: 2px solid rgba(0, 131, 145, 0.3);
+            
+            /* Forma de montaña poligonal/irregular */
+            clip-path: polygon(50% 0%, 85% 25%, 100% 100%, 0% 100%, 15% 25%);
+            
+            border-bottom: 3px solid var(--accent-color);
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
             z-index: 1;
-            box-shadow: inset 0 0 20px rgba(241, 206, 168, 0.05), 0 15px 35px rgba(0,0,0,0.6);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             position: relative;
-            overflow: hidden;
         }
 
-        /* Efecto de brillo mineral en la piedra */
-        .header-shape-container::after {
+        /* Aristas de la montaña para dar relieve */
+        .mountain-container::before {
             content: "";
             position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(0, 131, 145, 0.1) 0%, transparent 70%);
-            pointer-events: none;
+            top: 0;
+            left: 50%;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(241, 206, 168, 0.2), transparent);
+            z-index: 2;
         }
 
         h1 {
             color: var(--color-cream);
-            font-size: 2.8rem;
+            font-size: 3rem;
             margin-bottom: 5px;
-            position: relative;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            font-family: 'Noto Sans Tifinagh', sans-serif;
         }
 
         .subtitle {
             color: var(--color-cream);
             font-weight: bold;
-            letter-spacing: 1px;
-            font-size: 1rem;
-            opacity: 0.85;
-            position: relative;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
 
-        /* --- CONTENEDORES Y TARJETAS --- */
+        /* --- CONTENEDORES --- */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
             position: relative;
             z-index: 1;
         }
@@ -139,11 +141,11 @@
         .card {
             background: var(--card-bg);
             backdrop-filter: blur(8px);
-            border-radius: 28px;
+            border-radius: 24px;
             padding: 35px;
             margin-bottom: 30px;
-            border: 1px solid rgba(241, 206, 168, 0.08);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            border: 1px solid rgba(241, 206, 168, 0.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
         }
 
         h2 {
@@ -170,20 +172,9 @@
 
         .fursona-spec {
             background: rgba(0, 0, 0, 0.3);
-            padding: 25px;
-            border-radius: 20px;
+            padding: 20px;
+            border-radius: 15px;
             border-left: 5px solid var(--accent-color);
-        }
-
-        .feature-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin: 5px;
-            padding: 8px 16px;
-            background: var(--color-brown-med);
-            border-radius: 12px;
-            font-size: 0.85rem;
         }
 
         .contact-link {
@@ -191,12 +182,14 @@
             text-decoration: none;
             font-weight: bold;
             font-size: 1.1rem;
-            transition: 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 10px;
             margin-top: 10px;
+            transition: 0.3s;
         }
+
+        .contact-link:hover { color: var(--color-cream); }
 
         #riverCanvas {
             position: fixed;
@@ -222,14 +215,14 @@
     <div class="container">
         <header>
             <img src="avatar.jpeg" alt="ⵉⴽⵊ" class="profile-img">
-            <div class="header-shape-container">
+            <div class="mountain-container">
                 <h1>ⵉⴽⵊ</h1>
                 <p class="subtitle">🦘 Anthrorigen Otter 🦦</p>
             </div>
         </header>
 
         <section class="card">
-            <h2 class="i18n" data-es="Introducción" data-en="Introduction"><i class="fas fa-water"></i> Introducción</h2>
+            <h2 class="i18n" data-es="Introducción" data-en="Introduction"><i class="fas fa-mountain"></i> Introducción</h2>
             <p class="i18n" 
                data-es="Soy una persona <strong>tranquila pero activa</strong>. Inquieto por naturaleza, con ganas constantes de aprender y hacer cosas nuevas, siempre que el entorno acompañe." 
                data-en="I am a <strong>calm yet active</strong> person. Restless by nature, with a constant desire to learn and do new things, as long as the environment feels right.">
@@ -243,27 +236,7 @@
                 <span class="hobby-tag i18n" data-es="⛰️ Senderismo" data-en="⛰️ Hiking">⛰️ Senderismo</span>
                 <span class="hobby-tag i18n" data-es="🏊 Natación" data-en="🏊 Swimming">🏊 Natación</span>
                 <span class="hobby-tag i18n" data-es="🗺️ Exploración" data-en="🗺️ Exploration">🗺️ Exploración</span>
-                <span class="hobby-tag i18n" data-es="🧗 Aventura" data-en="🧗 Adventure">🧗 Aventura</span>
             </div>
-        </section>
-
-        <section class="card">
-            <h2 class="i18n" data-es="Mi Fursona" data-en="My Fursona"><i class="fas fa-dna"></i> Mi Fursona</h2>
-            <div class="fursona-spec">
-                <p class="i18n"
-                   data-es="<strong>ADN:</strong> Una amalgama de Nutria y Canguro, combinando agilidad acuática y fuerza terrestre."
-                   data-en="<strong>DNA:</strong> An amalgam of Otter and Kangaroo, combining aquatic agility and terrestrial strength.">
-                   <strong>ADN:</strong> Una amalgama de Nutria y Canguro, combinando agilidad acuática y fuerza terrestre.
-                </p>
-                <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;">
-                    <span class="feature-tag">☯️ Shapeshifter</span>
-                    <span class="feature-tag">🪶 Therian Furry</span>
-                    <span class="feature-tag">🐾 Werecreature</span>
-                </div>
-            </div>
-            <p style="margin-top: 35px; text-align: center; font-style: italic; color: var(--accent-color); font-size: 1.3rem;">
-                🌀 ⴷⵍⵜⴼⴽⴱⴿⵊⵒⵉⵍ ⴱⵜⵜⵉⴽ 🌱
-            </p>
         </section>
 
         <section class="card" style="text-align: center;">
@@ -304,7 +277,6 @@
         }
         updateContent();
 
-        // Partículas
         const canvas = document.getElementById('riverCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
