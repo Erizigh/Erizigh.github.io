@@ -59,67 +59,79 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .lang-switch:hover {
-            transform: scale(1.1);
-            background: var(--accent-color);
-            color: white;
-        }
-
-        .lang-switch img { width: 20px; height: auto; border-radius: 2px; }
-
-        /* --- HEADER Y MEJORA DE LECTURA --- */
+        /* --- HEADER ARTÍSTICO (FORMA DE PIEDRA/MONTAÑA) --- */
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
         .profile-img {
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             border: 4px solid var(--accent-color);
-            box-shadow: 0 0 50px rgba(0, 131, 145, 0.7);
+            box-shadow: 0 0 30px rgba(0, 131, 145, 0.5);
             object-fit: cover;
-            margin-bottom: -40px; /* Solapamiento estético */
-            z-index: 2;
+            z-index: 3;
             background-color: var(--color-brown-light);
+            transition: transform 0.5s ease;
         }
 
-        .header-info-box {
+        .profile-img:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .header-shape-container {
+            margin-top: -80px; /* Sube para envolver parte del avatar */
+            padding: 100px 40px 40px 40px;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            padding: 60px 40px 30px 40px;
-            border-radius: 28px;
-            border: 1px solid rgba(241, 206, 168, 0.15);
+            backdrop-filter: blur(15px);
+            /* Forma de piedra orgánica */
+            border-radius: 60% 40% 70% 30% / 30% 70% 30% 70%;
+            border: 2px solid rgba(0, 131, 145, 0.3);
             width: 100%;
-            max-width: 500px;
+            max-width: 450px;
             z-index: 1;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: inset 0 0 20px rgba(241, 206, 168, 0.05), 0 15px 35px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de brillo mineral en la piedra */
+        .header-shape-container::after {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(0, 131, 145, 0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         h1 {
             color: var(--color-cream);
             font-size: 2.8rem;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
             margin-bottom: 5px;
+            position: relative;
         }
 
         .subtitle {
             color: var(--color-cream);
             font-weight: bold;
-            letter-spacing: 2px;
-            font-size: 1.1rem;
-            opacity: 0.9;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            opacity: 0.85;
+            position: relative;
         }
 
-        /* --- CONTENEDORES --- */
+        /* --- CONTENEDORES Y TARJETAS --- */
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px 20px;
+            padding: 40px 20px;
             position: relative;
             z-index: 1;
         }
@@ -135,11 +147,11 @@
         }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             color: var(--accent-color);
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 10px;
@@ -148,7 +160,7 @@
         .hobby-tag {
             background: var(--color-eye-deep);
             color: var(--color-cream);
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
             border: 1px solid var(--accent-color);
             display: inline-block;
@@ -160,7 +172,7 @@
             background: rgba(0, 0, 0, 0.3);
             padding: 25px;
             border-radius: 20px;
-            border-left: 6px solid var(--accent-color);
+            border-left: 5px solid var(--accent-color);
         }
 
         .feature-tag {
@@ -171,40 +183,19 @@
             padding: 8px 16px;
             background: var(--color-brown-med);
             border-radius: 12px;
-            font-size: 0.9rem;
-        }
-
-        .footer-card { text-align: center; padding: 20px; margin-bottom: 20px; }
-
-        .footer-icons {
-            font-size: 2.2rem;
-            color: var(--accent-color);
-            letter-spacing: 15px;
-            display: block;
-            margin: 10px 0;
+            font-size: 0.85rem;
         }
 
         .contact-link {
             color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            transition: 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-top: 15px;
-            padding: 10px 20px;
-            border: 1px solid transparent;
-            border-radius: 15px;
-        }
-
-        .contact-link:hover {
-            color: var(--color-cream);
-            text-shadow: 0 0 15px var(--accent-color);
-            background: rgba(0, 131, 145, 0.1);
-            border-color: var(--accent-color);
-            transform: translateY(-3px);
+            margin-top: 10px;
         }
 
         #riverCanvas {
@@ -231,7 +222,7 @@
     <div class="container">
         <header>
             <img src="avatar.jpeg" alt="ⵉⴽⵊ" class="profile-img">
-            <div class="header-info-box">
+            <div class="header-shape-container">
                 <h1>ⵉⴽⵊ</h1>
                 <p class="subtitle">🦘 Anthrorigen Otter 🦦</p>
             </div>
@@ -243,11 +234,6 @@
                data-es="Soy una persona <strong>tranquila pero activa</strong>. Inquieto por naturaleza, con ganas constantes de aprender y hacer cosas nuevas, siempre que el entorno acompañe." 
                data-en="I am a <strong>calm yet active</strong> person. Restless by nature, with a constant desire to learn and do new things, as long as the environment feels right.">
                Soy una persona <strong>tranquila pero activa</strong>. Inquieto por naturaleza, con ganas constantes de aprender y hacer cosas nuevas, siempre que el entorno acompañe.
-            </p>
-            <p style="margin-top: 15px;" class="i18n"
-               data-es="Me encanta conocer gente, compartir gustos y descubrir los de los demás. Estoy encantado de conocer y que me conozcan con total naturalidad y respeto."
-               data-en="I love meeting people, sharing interests, and discovering others' passions. I'm happy to get to know others and be known with total naturalness and respect.">
-               Me encanta conocer gente, compartir gustos y descubrir los de los demás. Estoy encantado de conocer y que me conozcan con total naturalidad y respeto.
             </p>
         </section>
 
@@ -269,12 +255,6 @@
                    data-en="<strong>DNA:</strong> An amalgam of Otter and Kangaroo, combining aquatic agility and terrestrial strength.">
                    <strong>ADN:</strong> Una amalgama de Nutria y Canguro, combinando agilidad acuática y fuerza terrestre.
                 </p>
-                <p class="i18n"
-                   data-es="<strong>Colores:</strong> Marrón profundo exterior y crema interior, decorado con rayas <strong>Azul Atolón</strong> que brillan bajo el agua."
-                   data-en="<strong>Colors:</strong> Deep brown exterior and cream interior, decorated with <strong>Atoll Blue</strong> stripes that glow underwater.">
-                   <strong>Colores:</strong> Marrón profundo exterior y crema interior, decorado con rayas <strong>Azul Atolón</strong> que brillan bajo el agua.
-                </p>
-                
                 <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;">
                     <span class="feature-tag">☯️ Shapeshifter</span>
                     <span class="feature-tag">🪶 Therian Furry</span>
@@ -286,7 +266,7 @@
             </p>
         </section>
 
-        <section class="card footer-card">
+        <section class="card" style="text-align: center;">
             <p class="i18n" 
                data-es="Si te apetece saludar, hablar o compartir algo, estaré en:" 
                data-en="If you want to say hi, talk or share something, I'll be at:">
@@ -295,16 +275,14 @@
             <a href="https://t.me/Erizigh" target="_blank" class="contact-link">
                 <i class="fab fa-telegram"></i> Telegram
             </a>
-        </section>
-
-        <section class="card footer-card">
-            <div class="footer-icons">ⵣ ✌🏾 🦘 🦦 🌊</div>
+            <div style="margin-top: 25px; font-size: 1.8rem; color: var(--accent-color); letter-spacing: 10px;">
+                ⵣ ✌🏾 🦘 🦦 🌊
+            </div>
         </section>
     </div>
 
     <script>
         let currentLang = localStorage.getItem('prefLang') || 'es';
-
         function updateContent() {
             document.querySelectorAll('.i18n').forEach(el => {
                 el.innerHTML = el.getAttribute(`data-${currentLang}`);
@@ -320,12 +298,10 @@
             }
             localStorage.setItem('prefLang', currentLang);
         }
-
         function toggleLang() {
             currentLang = currentLang === 'es' ? 'en' : 'es';
             updateContent();
         }
-
         updateContent();
 
         // Partículas
@@ -340,8 +316,7 @@
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 0.5;
-                this.speedX = Math.random() * 0.4 - 0.2;
-                this.speedY = Math.random() * -0.6 - 0.1;
+                this.speedY = Math.random() * -0.5 - 0.1;
                 this.opacity = Math.random() * 0.4 + 0.1;
             }
             draw() {
@@ -353,21 +328,16 @@
             }
             update() {
                 this.y += this.speedY;
-                this.x += this.speedX;
                 if (this.y < -10) this.y = canvas.height + 10;
                 this.draw();
             }
         }
-        for (let i = 0; i < 50; i++) particles.push(new Particle());
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => p.update());
             requestAnimationFrame(animate);
         }
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
         animate();
     </script>
 </body>
