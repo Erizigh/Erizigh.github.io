@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ⵉⴽⵊ | 🦘 Anthrorigen Otter 🦦</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;700&family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --color-cream: #f1cea8;
+            --color-brown-light: #634331;
+            --color-brown-med: #302118;
+            --color-brown-dark: #170901;
+            --color-atol-blue: #008391;
+            --color-eye-deep: #113b43;
+
+            --bg-color: var(--color-brown-dark);
+            --card-bg: rgba(23, 9, 1, 0.85); 
+            --accent-color: var(--color-atol-blue);
+            --text-main: var(--color-cream);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: url('fondo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: 'Lexend', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Efecto de reflejos de agua */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(0, 131, 145, 0.08) 0%, transparent 50%);
+            background-size: 150% 150%;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(10px);
+            opacity: 0.6;
+            animation: waterReflections 20s ease-in-out infinite;
+        }
+
+        @keyframes waterReflections {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+        }
+
+        #riverCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 50px rgba(0, 131, 145, 0.7);
+            object-fit: cover;
+            margin-bottom: 25px;
+            background-color: var(--color-brown-light);
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 35px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(241, 206, 168, 0.08);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        .hobby-tag {
+            background: var(--color-eye-deep);
+            color: var(--color-cream);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--accent-color);
+            display: inline-block;
+            margin: 5px;
+            font-size: 0.9rem;
+        }
+
+        .fursona-spec {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 6px solid var(--accent-color);
+        }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+            padding: 8px 16px;
+            background: var(--color-brown-med);
+            border-radius: 12px;
+            font-size: 0.9rem;
+        }
+
+        .footer-card {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-icons {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            letter-spacing: 15px;
+            display: block;
+            margin: 10px 0;
+        }
+
+        strong { color: var(--accent-color); }
+        p { text-shadow: 1px 1px 2px black; }
+    </style>
+</head>
+<body>
+
+    <canvas id="riverCanvas"></canvas>
+
+    <div class="container">
+        <header>
+            <img src="https://erizigh.carrd.co/assets/images/image01.jpg" alt="Erizigh" class="profile-img">
+            <h1 style="color: var(--color-cream); font-size: 2.8rem; text-shadow: 3px 3px 15px black;">Erizigh</h1>
+            <p style="color: var(--accent-color); font-weight: bold; letter-spacing: 4px; text-shadow: 2px 2px 8px black;">
+                ⵣ Anthrorigen Otter-Roo ⵣ
+            </p>
+        </header>
+
+        <section class="card">
+            <h2><i class="fas fa-water"></i> Introducción</h2>
+            <p>Soy una persona <strong>tranquila pero activa</strong>. Inquieto por naturaleza, con ganas constantes de aprender y hacer cosas nuevas, siempre que el entorno acompañe.</p>
+            <p style="margin-top: 15px;">Me encanta conocer gente, compartir gustos y descubrir los de los demás. Estoy encantado de conocer y que me conozcan con total naturalidad y respeto.</p>
+        </section>
+
+        <section class="card">
+            <h2><i class="fas fa-heart"></i> Hobbies</h2>
+            <div class="hobbies-grid">
+                <span class="hobby-tag">⛰️ Senderismo</span>
+                <span class="hobby-tag">🏊 Natación</span>
+                <span class="hobby-tag">🗺️ Exploración</span>
+                <span class="hobby-tag">🧗 Aventura</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><i class="fas fa-dna"></i> Mi Fursona</h2>
+            <div class="fursona-spec">
+                <p><strong>ADN:</strong> Una amalgama de Nutria y Canguro, combinando agilidad acuática y fuerza terrestre.</p>
+                <p><strong>Colores:</strong> Marrón profundo exterior y crema interior, decorado con rayas <strong>Azul Atolón</strong> que brillan bajo el agua.</p>
+                
+                <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;">
+                    <span class="feature-tag">☯️ Shapeshifter</span>
+                    <span class="feature-tag">🪶 Therian Furry</span>
+                    <span class="feature-tag">🐾 Werecreature</span>
+                </div>
+            </div>
+            <p style="margin-top: 35px; text-align: center; font-style: italic; color: var(--accent-color); font-size: 1.3rem;">
+                🌀 ⴷⵍⵜⴼⴽⴱⴿⵊⵒⵉⵍ ⴱⵜⵜⵉⴽ 🌱
+            </p>
+        </section>
+
+        <section class="card footer-card">
+            <div class="footer-icons">ⵣ ✌🏾 🦘 🦦 🌊</div>
+        </section>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('riverCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        const particleColor = '#f1cea8'; 
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * -0.6 - 0.1;
+                this.opacity = Math.random() * 0.4 + 0.1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.fillStyle = particleColor;
+                ctx.globalAlpha = this.opacity;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y < -10) this.y = canvas.height + 10;
+                this.draw();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) { particles.push(new Particle()); }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => p.update());
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        animate();
+    </script>
+</body>
+</html>
