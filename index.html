@@ -37,7 +37,7 @@
             overflow-x: hidden;
         }
 
-        /* --- BOTÓN DE IDIOMA RESPONSIVE --- */
+        /* --- BOTÓN DE IDIOMA --- */
         .lang-switch {
             position: fixed;
             top: 15px;
@@ -57,9 +57,10 @@
             backdrop-filter: blur(10px);
             transition: 0.3s;
             font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .lang-switch img { width: 18px; height: auto; }
+        .lang-switch img { width: 18px; height: auto; border-radius: 2px; }
 
         /* --- HEADER ARTÍSTICO (PIEDRA) --- */
         header {
@@ -98,7 +99,7 @@
         h1 { font-size: 2.5rem; color: var(--color-cream); margin-bottom: 5px; }
         .subtitle { font-size: 1rem; letter-spacing: 1px; opacity: 0.9; }
 
-        /* --- CONTENEDOR PRINCIPAL RESPONSIVE --- */
+        /* --- CONTENEDORES --- */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -128,7 +129,6 @@
             padding-bottom: 8px;
         }
 
-        /* --- HOBBIES --- */
         .hobbies-grid {
             display: flex;
             flex-wrap: wrap;
@@ -145,7 +145,6 @@
             font-size: 0.85rem;
         }
 
-        /* --- FURSONA --- */
         .fursona-spec {
             background: rgba(0, 0, 0, 0.4);
             padding: 20px;
@@ -164,7 +163,6 @@
             font-size: 0.8rem;
         }
 
-        /* --- CONTACTO --- */
         .contact-link {
             color: var(--accent-color);
             text-decoration: none;
@@ -174,28 +172,28 @@
             align-items: center;
             gap: 10px;
             margin-top: 15px;
-            padding: 8px 18px;
+            padding: 10px 20px;
             border-radius: 12px;
             transition: 0.3s;
         }
+
         .contact-link:hover { color: var(--color-cream); transform: translateY(-2px); }
 
         .footer-icons {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--accent-color);
-            letter-spacing: 12px;
-            margin-top: 20px;
+            letter-spacing: 15px;
             text-align: center;
         }
 
-        /* --- MEDIA QUERIES (TABLETS Y MÓVILES) --- */
+        /* --- RESPONSIVE --- */
         @media (max-width: 600px) {
             h1 { font-size: 2rem; }
-            .subtitle { font-size: 0.9rem; }
             .card { padding: 20px; }
             .profile-img { width: 130px; height: 130px; }
             .header-shape-container { padding: 70px 20px 30px 20px; }
-            .lang-switch { top: 10px; right: 10px; padding: 5px 10px; }
+            .lang-switch { top: 10px; right: 10px; }
+            .footer-icons { font-size: 1.5rem; letter-spacing: 8px; }
         }
 
         #riverCanvas {
@@ -229,7 +227,9 @@
         </header>
 
         <section class="card">
-            <h2 class="i18n" data-es="Introducción" data-en="Introduction"><i class="fas fa-water"></i> Introducción</h2>
+            <h2 class="i18n" data-es="<i class='fas fa-water'></i> Introducción" data-en="<i class='fas fa-water'></i> Introduction">
+                <i class="fas fa-water"></i> Introducción
+            </h2>
             <p class="i18n" 
                data-es="Soy una persona <strong>tranquila pero activa</strong>. Inquieto por naturaleza, con ganas constantes de aprender y hacer cosas nuevas, siempre que el entorno acompañe." 
                data-en="I am a <strong>calm yet active</strong> person. Restless by nature, with a constant desire to learn and do new things, as long as the environment feels right.">
@@ -243,7 +243,9 @@
         </section>
 
         <section class="card">
-            <h2 class="i18n" data-es="Hobbies" data-en="Hobbies"><i class="fas fa-heart"></i> Hobbies</h2>
+            <h2 class="i18n" data-es="<i class='fas fa-heart'></i> Hobbies" data-en="<i class='fas fa-heart'></i> Hobbies">
+                <i class="fas fa-heart"></i> Hobbies
+            </h2>
             <div class="hobbies-grid">
                 <span class="hobby-tag i18n" data-es="⛰️ Senderismo" data-en="⛰️ Hiking">⛰️ Senderismo</span>
                 <span class="hobby-tag i18n" data-es="🏊 Natación" data-en="🏊 Swimming">🏊 Natación</span>
@@ -253,7 +255,9 @@
         </section>
 
         <section class="card">
-            <h2 class="i18n" data-es="Mi Fursona" data-en="My Fursona"><i class="fas fa-dna"></i> Mi Fursona</h2>
+            <h2 class="i18n" data-es="<i class='fas fa-dna'></i> Mi Fursona" data-en="<i class='fas fa-dna'></i> My Fursona">
+                <i class="fas fa-dna"></i> Mi Fursona
+            </h2>
             <div class="fursona-spec">
                 <p class="i18n"
                    data-es="<strong>ADN:</strong> Una amalgama de Nutria y Canguro, combinando agilidad acuática y fuerza terrestre."
@@ -277,7 +281,7 @@
             </p>
         </section>
 
-        <section class="card" style="text-align: center; margin-bottom: 0;">
+        <section class="card" style="text-align: center;">
             <p class="i18n" 
                data-es="Si te apetece saludar, hablar o compartir algo, estaré en:" 
                data-en="If you want to say hi, talk or share something, I'll be at:">
@@ -286,13 +290,15 @@
             <a href="https://t.me/Erizigh" target="_blank" class="contact-link">
                 <i class="fab fa-telegram"></i> Telegram
             </a>
+        </section>
+
+        <section class="card" style="padding: 20px;">
             <div class="footer-icons">ⵣ ✌🏾 🦘 🦦 🌊</div>
         </section>
 
     </div>
 
     <script>
-        // --- IDIOMA ---
         let currentLang = localStorage.getItem('prefLang') || 'es';
         function updateContent() {
             document.querySelectorAll('.i18n').forEach(el => {
