@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ⵉ�ⵊ | 🦘 Anthrorigen Otter 🦦</title>
+    <title>ⵉⴽⵊ | 🦘 Anthrorigen Otter 🦦</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪨</text></svg>">
 
@@ -155,6 +155,23 @@
             margin: 10px 0;
         }
 
+        .contact-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-link:hover {
+            color: var(--color-cream);
+            text-shadow: 0 0 15px var(--accent-color);
+            transform: scale(1.05);
+        }
+
         strong { color: var(--accent-color); }
         p { text-shadow: 1px 1px 2px black; }
     </style>
@@ -165,7 +182,7 @@
 
     <div class="container">
         <header>
-            <img src="https://erizigh.carrd.co/assets/images/image01.jpg" alt="Erizigh" class="profile-img">
+            <img src="avatar.jpeg" alt="Erizigh" class="profile-img">
             <h1 style="color: var(--color-cream); font-size: 2.8rem; text-shadow: 3px 3px 15px black;">Erizigh</h1>
             <p style="color: var(--accent-color); font-weight: bold; letter-spacing: 4px; text-shadow: 2px 2px 8px black;">
                 ⵣ Anthrorigen Otter-Roo ⵣ
@@ -207,6 +224,13 @@
 
         <section class="card footer-card">
             <div class="footer-icons">ⵣ ✌🏾 🦘 🦦 🌊</div>
+        </section>
+
+        <section class="card footer-card">
+            <p>Si deseas contactar conmigo, búscame en:</p>
+            <a href="https://t.me/Erizigh" target="_blank" class="contact-link">
+                <i class="fab fa-telegram"></i> Telegram: @Erizigh
+            </a>
         </section>
 
     </div>
