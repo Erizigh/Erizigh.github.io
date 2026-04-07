@@ -53,6 +53,9 @@
             cursor: pointer;
             font-family: 'Lexend', sans-serif;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
@@ -62,6 +65,12 @@
             transform: scale(1.1);
             background: var(--accent-color);
             color: white;
+        }
+
+        .lang-switch img {
+            width: 20px;
+            height: auto;
+            border-radius: 2px;
         }
 
         body::before {
@@ -184,18 +193,23 @@
             color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            border-radius: 15px;
         }
 
         .contact-link:hover {
             color: var(--color-cream);
             text-shadow: 0 0 15px var(--accent-color);
-            transform: scale(1.05);
+            background: rgba(0, 131, 145, 0.1);
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
         }
 
         strong { color: var(--accent-color); }
@@ -204,7 +218,11 @@
 </head>
 <body>
 
-    <button class="lang-switch" onclick="toggleLang()" id="langBtn">EN</button>
+    <button class="lang-switch" onclick="toggleLang()" id="langBtn">
+        <span id="langText">EN</span>
+        <img id="langFlag" src="https://flagcdn.com/w40/gb.png" alt="Flag">
+    </button>
+    
     <canvas id="riverCanvas"></canvas>
 
     <div class="container">
@@ -266,11 +284,13 @@
         </section>
 
         <section class="card footer-card">
-            <p class="i18n" data-es="¡Me encantaría charlar contigo! Si te apetece saludar o compartir algo, podemos hablar por aquí:" data-en="I'd love to chat with you! If you want to say hi or share something, we can talk here:">
-                ¡Me encantaría charlar contigo! Si te apetece saludar o compartir algo, podemos hablar por aquí:
+            <p class="i18n" 
+               data-es="Si te apetece saludar, hablar o compartir algo, estaré en:" 
+               data-en="If you want to say hi, talk or share something, I'll be at:">
+               Si te apetece saludar, hablar o compartir algo, estaré en:
             </p>
-            <a href="https://t.me/Erizigh" target="_blank" class="contact-link i18n" data-es="Haz clic aquí para escribirme por Telegram" data-en="Click here to message me on Telegram">
-                <i class="fab fa-telegram"></i> Haz clic aquí para escribirme por Telegram
+            <a href="https://t.me/Erizigh" target="_blank" class="contact-link">
+                <i class="fab fa-telegram"></i> Telegram
             </a>
         </section>
 
@@ -288,7 +308,18 @@
             document.querySelectorAll('.i18n').forEach(el => {
                 el.innerHTML = el.getAttribute(`data-${currentLang}`);
             });
-            document.getElementById('langBtn').innerText = currentLang === 'es' ? 'EN' : 'ES';
+            
+            const btnText = document.getElementById('langText');
+            const btnFlag = document.getElementById('langFlag');
+            
+            if (currentLang === 'es') {
+                btnText.innerText = 'EN';
+                btnFlag.src = 'https://flagcdn.com/w40/gb.png';
+            } else {
+                btnText.innerText = 'ES';
+                btnFlag.src = 'https://flagcdn.com/w40/es.png';
+            }
+            
             localStorage.setItem('prefLang', currentLang);
         }
 
@@ -297,7 +328,6 @@
             updateContent();
         }
 
-        // Inicializar idioma al cargar
         updateContent();
 
         // --- EFECTO DE PARTÍCULAS ---
