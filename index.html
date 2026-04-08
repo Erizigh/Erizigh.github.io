@@ -122,6 +122,7 @@
             font-size: 1.3rem;
             margin-bottom: 18px;
             display: flex;
+            flex-direction: row;
             align-items: center;
             gap: 12px;
             color: var(--accent-color);
@@ -194,9 +195,13 @@
         /* --- FURSONA --- */
         .fursona-spec {
             background: rgba(0, 0, 0, 0.4);
-            padding: 20px;
+            padding: 25px;
             border-radius: 20px;
             border-left: 5px solid var(--accent-color);
+        }
+
+        .fursona-description p {
+            margin-bottom: 15px;
         }
 
         .feature-tag {
@@ -281,22 +286,22 @@
             <p class="i18n" 
                data-es="Hola, soy <strong>Erizigh</strong> pero puedes llamarme <strong>Eri</strong> (Es mi nombre real). Soy de España, en concreto, de <strong>Gran Canaria, Islas Canarias</strong>." 
                data-en="Hi, I'm <strong>Erizigh</strong> but you can call me <strong>Eri</strong> (It's my real name). I'm from Spain, specifically from <strong>Gran Canaria, Canary Islands</strong>.">
-                Hola, soy <strong>Erizigh</strong> pero puedes llamarme <strong>Eri</strong> (Es mi nombre real). Soy de España, en concreto, de <strong>Gran Canaria, Islas Canarias</strong>.
+                 Hola, soy <strong>Erizigh</strong> pero puedes llamarme <strong>Eri</strong> (Es mi nombre real). Soy de España, en concreto, de <strong>Gran Canaria, Islas Canarias</strong>.
             </p>
             <p style="margin-top: 15px;" class="i18n"
                data-es="Soy una persona <strong>tranquila pero activa</strong> (No me gusta el aburrimiento). Soy bastante inquieto con ganas de aprender y hacer cosas, siempre que las condiciones ayuden a ello."
                data-en="I am a <strong>calm yet active</strong> person (I don't like boredom). I'm quite restless, eager to learn and do things, as long as conditions allow.">
-                Soy una persona <strong>tranquila pero activa</strong> (No me gusta el aburrimiento). Soy bastante inquieto con ganas de aprender y hacer cosas, siempre que las condiciones ayuden a ello.
+                 Soy una persona <strong>tranquila pero activa</strong> (No me gusta el aburrimiento). Soy bastante inquieto con ganas de aprender y hacer cosas, siempre que las condiciones ayuden a ello.
             </p>
             <p style="margin-top: 15px;" class="i18n"
                data-es="Me gusta socializar, compartir mis gustos y viceversa, siempre y cuando haya algo en común/interés en ello. También soy un poco <strong>aventurero</strong> por mis hobbies y por aprender idiomas nuevos, aunque solamente sepa Español y un poco de Inglés. Me gustaría mejorar mi idioma extranjero."
                data-en="I enjoy socializing and sharing interests, provided there's a common connection. I'm also a bit <strong>adventurous</strong> due to my hobbies and my interest in learning new languages, although I only speak Spanish and a bit of English for now. I'd love to improve my foreign language skills.">
-                Me gusta socializar, compartir mis gustos y viceversa, siempre y cuando haya algo en común/interés en ello. También soy un poco <strong>aventurero</strong> por mis hobbies y por aprender idiomas nuevos, aunque solamente sepa Español y un poco de Inglés. Me gustaría mejorar mi idioma extranjero.
+                 Me gusta socializar, compartir mis gustos y viceversa, siempre y cuando haya algo en común/interés en ello. También soy un poco <strong>aventurero</strong> por mis hobbies y por aprender idiomas nuevos, aunque solamente sepa Español y un poco de Inglés. Me gustaría mejorar mi idioma extranjero.
             </p>
             <p style="margin-top: 15px;" class="i18n"
                data-es="Como ser humano que soy, no todo es bueno; también tengo muchos defectos y ando mejorando siempre para eliminarlos o, al menos, minimizarlos; pero no le doy protagonismo. <strong>Siempre positivo.</strong>"
                data-en="As a human being, not everything is perfect; I also have many flaws and I'm always working to eliminate or at least minimize them, but I don't let them take center stage. <strong>Always positive.</strong>">
-                Como ser humano que soy, no todo es bueno; también tengo muchos defectos y ando mejorando siempre para eliminarlos o, al menos, minimizarlos; pero no le doy protagonismo. <strong>Siempre positivo.</strong>
+                 Como ser humano que soy, no todo es bueno; también tengo muchos defectos y ando mejorando siempre para eliminarlos o, al menos, minimizarlos; pero no le doy protagonismo. <strong>Siempre positivo.</strong>
             </p>
         </section>
 
@@ -382,25 +387,28 @@
         </section>
 
         <section class="card">
-            <h2 class="i18n" data-es="<i class='fas fa-dna'></i> Mi Fursona" data-en="<i class='fas fa-dna'></i> My Fursona">
-                <i class="fas fa-dna"></i> Mi Fursona
+            <h2 class="i18n" data-es="<i class='fas fa-dna'></i> Fursona/Truesona 🐾" data-en="<i class='fas fa-dna'></i> Fursona/Truesona 🐾">
+                <i class="fas fa-dna"></i> Fursona/Truesona 🐾
             </h2>
             <div class="fursona-spec">
-                <p class="i18n"
-                   data-es="<strong>ADN:</strong> Una amalgama de Nutria y Canguro, combinando agilidad acuática y fuerza terrestre."
-                   data-en="<strong>DNA:</strong> An amalgam of Otter and Kangaroo, combining aquatic agility and terrestrial strength.">
-                    <strong>ADN:</strong> Una amalgama de Nutria y Canguro, combinando agilidad acuática y fuerza terrestre.
-                </p>
-                <p style="margin-top: 10px;" class="i18n"
-                   data-es="<strong>Colores:</strong> Marrón profundo exterior y crema interior, decorado con rayas <strong>Azul Atolón</strong> que brillan bajo el agua."
-                   data-en="<strong>Colors:</strong> Deep brown exterior and cream interior, decorated with <strong>Atoll Blue</strong> stripes that glow underwater.">
-                    <strong>Colores:</strong> Marrón profundo exterior y crema interior, decorado con rayas <strong>Azul Atolón</strong> que brillan bajo el agua.
-                </p>
+                <div class="fursona-description i18n" 
+                    data-es="<p>Mi especie es una <strong>nutria híbrida con canguro</strong> con varias pinceladas de otras especies; pelaje de color marrón oscuro por fuera y marrón claro por dentro, con una bolsa de canguro y rayas por todo el cuerpo estilo jurásico/aborigen en <strong>Azul Atolón</strong>.</p>
+                            <p>Soy un <strong>cambiaformas / TF / Wereanimal</strong>. Me defino así porque me gusta adaptarme a cualquier entorno y situación en la vida, disfrutando de ella lo máximo posible. Vamos, un <strong>'todoterreno'</strong>.</p>
+                            <p>Considero esto como un estilo de vida diario y un culto muy bonito con una <strong>conexión con la naturaleza muy intensa</strong>, que me aporta una paz interior que siempre sigo cultivando.</p>
+                            <p>Mi representación de mi fursona/truesona <strong>soy yo mismo en la vida real</strong> y viceversa (salvo rasgos obvios). Intento acercarme lo máximo posible, siendo humilde dentro de mis posibilidades.</p>
+                            <p><em>Si quieres saber más o que te la enseñe, avísame. No muerdo :3 xP.</em></p>"
+                    data-en="<p>My species is an <strong>otter-kangaroo hybrid</strong> with touches of other species; deep brown fur on the outside and light brown on the inside, featuring a kangaroo pouch and <strong>Atoll Blue</strong> jurassic/aboriginal style stripes across the body.</p>
+                            <p>I am a <strong>shapeshifter / TF / Wereanimal</strong>. I define myself this way because I love adapting to any environment and situation in life, enjoying it to the fullest. Basically, an <strong>'all-rounder'</strong>.</p>
+                            <p>I see this as a daily lifestyle and a beautiful tribute to life, with an <strong>intense connection to nature</strong> that brings me inner peace.</p>
+                            <p>My fursona/truesona <strong>is me in real life</strong> and vice versa (obvious traits aside). I try to bridge that gap as much as possible, staying humble within my reach.</p>
+                            <p><em>If you want to know more or want me to show you, let me know. I don't bite :3 xP.</em></p>">
+                    </div>
                 
                 <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;">
                     <span class="feature-tag">☯️ Shapeshifter</span>
                     <span class="feature-tag">🪶 Therian Furry</span>
                     <span class="feature-tag">🐾 Werecreature</span>
+                    <span class="feature-tag">🏔️ All-Terrain</span>
                 </div>
             </div>
         </section>
@@ -409,7 +417,7 @@
             <p class="i18n" 
                data-es="Si te apetece saludar, hablar o compartir algo, estaré en:" 
                data-en="If you want to say hi, talk or share something, I'll be at:">
-                Si te apetece saludar, hablar o compartir algo, estaré en:
+                 Si te apetece saludar, hablar o compartir algo, estaré en:
             </p>
             <a href="https://t.me/Erizigh" target="_blank" class="contact-link">
                 <i class="fab fa-telegram"></i> Telegram
