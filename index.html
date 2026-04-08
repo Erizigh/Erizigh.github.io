@@ -37,16 +37,21 @@
             overflow-x: hidden;
         }
 
-        /* --- BOTÓN DE IDIOMA --- */
-        .lang-switch {
+        /* --- BOTONES FLOTANTES --- */
+        .controls-container {
             position: fixed;
             top: 15px;
             right: 15px;
             z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-switch, .audio-switch {
             background: var(--card-bg);
             border: 2px solid var(--accent-color);
             color: var(--color-cream);
-            padding: 6px 12px;
+            padding: 8px 12px;
             border-radius: 50px;
             cursor: pointer;
             font-family: 'Lexend', sans-serif;
@@ -60,6 +65,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
+        .audio-switch { width: 45px; justify-content: center; padding: 8px 0; }
         .lang-switch img { width: 18px; height: auto; border-radius: 2px; }
 
         /* --- HEADER ARTÍSTICO --- */
@@ -200,9 +206,7 @@
             border-left: 5px solid var(--accent-color);
         }
 
-        .fursona-description p {
-            margin-bottom: 15px;
-        }
+        .fursona-description p { margin-bottom: 15px; }
 
         .feature-tag {
             display: inline-flex;
@@ -245,7 +249,7 @@
             .card { padding: 20px; }
             .profile-img { width: 130px; height: 130px; }
             .header-shape-container { padding: 70px 20px 30px 20px; }
-            .lang-switch { top: 10px; right: 10px; }
+            .controls-container { top: 10px; right: 10px; }
             .footer-icons { font-size: 1.5rem; letter-spacing: 8px; }
         }
 
@@ -263,10 +267,19 @@
 </head>
 <body>
 
-    <button class="lang-switch" onclick="toggleLang()" id="langBtn">
-        <span id="langText">EN</span>
-        <img id="langFlag" src="https://flagcdn.com/w40/au.png" alt="Australia Flag">
-    </button>
+    <div class="controls-container">
+        <button class="audio-switch" onclick="toggleAudio()" title="Activar Sonido Ambiente">
+            <i id="audioIcon" class="fas fa-volume-mute"></i>
+        </button>
+        <button class="lang-switch" onclick="toggleLang()" id="langBtn">
+            <span id="langText">EN</span>
+            <img id="langFlag" src="https://flagcdn.com/w40/au.png" alt="Australia Flag">
+        </button>
+    </div>
+
+    <audio id="bgAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        </audio>
     
     <canvas id="riverCanvas"></canvas>
 
@@ -431,6 +444,22 @@
     </div>
 
     <script>
+        // --- LÓGICA DE AUDIO ---
+        const bgAudio = document.getElementById('bgAudio');
+        const audioIcon = document.getElementById('audioIcon');
+        bgAudio.volume = 0.2; // Volumen bajo al 20% para que sea sutil
+
+        function toggleAudio() {
+            if (bgAudio.paused) {
+                bgAudio.play();
+                audioIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+            } else {
+                bgAudio.pause();
+                audioIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+            }
+        }
+
+        // --- LÓGICA DE HOBBIES ---
         function toggleHobbies() {
             const list = document.getElementById('hobbies-list');
             const arrow = document.getElementById('hobby-arrow');
@@ -438,6 +467,7 @@
             arrow.style.transform = list.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
+        // --- LÓGICA DE IDIOMA ---
         let currentLang = localStorage.getItem('prefLang') || 'es';
         function updateContent() {
             document.querySelectorAll('.i18n').forEach(el => {
@@ -460,6 +490,7 @@
         }
         updateContent();
 
+        // --- CANVAS DE PARTÍCULAS ---
         const canvas = document.getElementById('riverCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
