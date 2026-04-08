@@ -268,7 +268,7 @@
 <body>
 
     <div class="controls-container">
-        <button class="audio-switch" onclick="toggleAudio()" title="Activar Sonido Ambiente">
+        <button class="audio-switch" onclick="toggleAudio()" title="Activar Sonido Shishi-odoshi">
             <i id="audioIcon" class="fas fa-volume-mute"></i>
         </button>
         <button class="lang-switch" onclick="toggleLang()" id="langBtn">
@@ -278,8 +278,8 @@
     </div>
 
     <audio id="bgAudio" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
+        <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7322300096.mp3" type="audio/mpeg">
+    </audio>
     
     <canvas id="riverCanvas"></canvas>
 
@@ -444,10 +444,10 @@
     </div>
 
     <script>
-        // --- LÓGICA DE AUDIO ---
+        // --- LÓGICA DE AUDIO (Shishi-odoshi) ---
         const bgAudio = document.getElementById('bgAudio');
         const audioIcon = document.getElementById('audioIcon');
-        bgAudio.volume = 0.2; // Volumen bajo al 20% para que sea sutil
+        bgAudio.volume = 0.3; // Un poco más alto para apreciar el bambú
 
         function toggleAudio() {
             if (bgAudio.paused) {
