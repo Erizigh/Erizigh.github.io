@@ -31,7 +31,7 @@
             font-family: 'Lexend', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 200vh; /* Necesario para el scroll */
+            min-height: 200vh; 
         }
 
         /* --- SISTEMA DE FONDOS EN CAPAS --- */
@@ -47,7 +47,6 @@
             transition: opacity 0.1s linear;
         }
 
-        /* Cambia fondo2.jpg y fondo3.jpg por los nombres de tus archivos */
         #layer1 { background-image: url('fondo.jpg'); z-index: -3; }
         #layer2 { background-image: url('fondo2.jpg'); opacity: 0; z-index: -2; }
         #layer3 { background-image: url('fondo3.jpg'); opacity: 0; z-index: -1; }
@@ -137,6 +136,7 @@
             margin-bottom: 25px;
             border: 1px solid rgba(241, 206, 168, 0.1);
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            width: 100%;
         }
 
         h2 {
@@ -151,7 +151,7 @@
             padding-bottom: 8px;
         }
 
-        /* --- DESPLEGABLE DE HOBBIES --- */
+        /* --- DESPLEGABLE DE HOBBIES (RESPONSIVE FIX) --- */
         .hobbies-dropdown {
             width: 100%;
             border-radius: 15px;
@@ -171,17 +171,15 @@
             transition: 0.3s;
         }
 
-        .hobbies-trigger:hover { background: var(--color-brown-light); }
-
         .hobbies-content {
             max-height: 0;
-            overflow: hidden;
+            overflow-y: auto; /* Permite scroll interno si es necesario */
             transition: max-height 0.5s ease-out;
             background: rgba(0, 0, 0, 0.2);
         }
 
         .hobbies-content.open {
-            max-height: 2000px; 
+            max-height: 80vh; /* Limita altura para no romper el layout */
             padding: 20px;
         }
 
@@ -189,17 +187,18 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .hobby-tag {
             background: var(--color-brown-med);
             color: var(--color-cream);
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 10px;
             border: 1px solid rgba(241, 206, 168, 0.1);
-            font-size: 0.8rem;
-            white-space: nowrap;
+            font-size: 0.85rem;
+            white-space: normal; /* Permite saltar de línea en móviles muy pequeños */
+            text-align: center;
         }
 
         .hobby-category-title {
@@ -209,8 +208,9 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--accent-color);
-            margin: 15px 0 8px 0;
+            margin: 20px 0 10px 0;
             border-bottom: 1px solid rgba(0, 131, 145, 0.2);
+            padding-bottom: 5px;
         }
 
         /* --- FURSONA --- */
@@ -252,20 +252,24 @@
         .contact-link:hover { color: var(--color-cream); transform: translateY(-2px); }
 
         .footer-icons {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--accent-color);
-            letter-spacing: 15px;
+            letter-spacing: 10px;
             text-align: center;
+            padding: 10px 0;
+            word-break: break-all;
         }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE OPTIMIZADO --- */
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .card { padding: 20px; }
-            .profile-img { width: 130px; height: 130px; }
-            .header-shape-container { padding: 70px 20px 30px 20px; }
+            h1 { font-size: 1.8rem; }
+            .card { padding: 15px; }
+            .profile-img { width: 120px; height: 120px; }
+            .header-shape-container { padding: 60px 15px 25px 15px; }
             .controls-container { top: 10px; right: 10px; }
-            .footer-icons { font-size: 1.5rem; letter-spacing: 8px; }
+            .lang-switch { padding: 6px 10px; font-size: 0.75rem; }
+            .footer-icons { font-size: 1.3rem; letter-spacing: 5px; }
+            .hobby-tag { font-size: 0.75rem; padding: 6px 10px; }
         }
 
         #riverCanvas {
@@ -461,21 +465,18 @@
     </div>
 
     <script>
-        // --- LÓGICA DE FONDOS SUAVES ---
+        // --- LÓGICA DE FONDOS ---
         window.addEventListener('scroll', () => {
             const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
             const l2 = document.getElementById('layer2');
             const l3 = document.getElementById('layer3');
 
-            // Transición 1 (de 0% a 50% del scroll)
             if (scrollPercent <= 0.5) {
-                l2.style.opacity = (scrollPercent * 2); // Escala de 0 a 1
+                l2.style.opacity = (scrollPercent * 2);
                 l3.style.opacity = 0;
-            } 
-            // Transición 2 (de 50% a 100% del scroll)
-            else {
+            } else {
                 l2.style.opacity = 1;
-                l3.style.opacity = (scrollPercent - 0.5) * 2; // Escala de 0 a 1
+                l3.style.opacity = (scrollPercent - 0.5) * 2;
             }
         });
 
