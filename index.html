@@ -27,15 +27,30 @@
 
         body {
             background-color: var(--bg-color);
-            background-image: url('fondo.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             color: var(--text-main);
             font-family: 'Lexend', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 200vh; /* Necesario para el scroll */
         }
+
+        /* --- SISTEMA DE FONDOS EN CAPAS --- */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            transition: opacity 0.1s linear;
+        }
+
+        /* Cambia fondo2.jpg y fondo3.jpg por los nombres de tus archivos */
+        #layer1 { background-image: url('fondo.jpg'); z-index: -3; }
+        #layer2 { background-image: url('fondo2.jpg'); opacity: 0; z-index: -2; }
+        #layer3 { background-image: url('fondo3.jpg'); opacity: 0; z-index: -1; }
 
         /* --- BOTONES FLOTANTES --- */
         .controls-container {
@@ -267,6 +282,10 @@
 </head>
 <body>
 
+    <div id="layer1" class="bg-layer"></div>
+    <div id="layer2" class="bg-layer"></div>
+    <div id="layer3" class="bg-layer"></div>
+
     <div class="controls-container">
         <button class="audio-switch" onclick="toggleAudio()" title="Reproducir Tema Musical">
             <i id="audioIcon" class="fas fa-volume-mute"></i>
@@ -442,7 +461,25 @@
     </div>
 
     <script>
-        // --- LÓGICA DE AUDIO (Archivo Local) ---
+        // --- LÓGICA DE FONDOS SUAVES ---
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const l2 = document.getElementById('layer2');
+            const l3 = document.getElementById('layer3');
+
+            // Transición 1 (de 0% a 50% del scroll)
+            if (scrollPercent <= 0.5) {
+                l2.style.opacity = (scrollPercent * 2); // Escala de 0 a 1
+                l3.style.opacity = 0;
+            } 
+            // Transición 2 (de 50% a 100% del scroll)
+            else {
+                l2.style.opacity = 1;
+                l3.style.opacity = (scrollPercent - 0.5) * 2; // Escala de 0 a 1
+            }
+        });
+
+        // --- LÓGICA DE AUDIO ---
         const bgAudio = document.getElementById('bgAudio');
         const audioIcon = document.getElementById('audioIcon');
         bgAudio.volume = 0.5;
