@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ⵉⴽⵊⵇⵊⴿⴼ | 🦘 Anthrorigen Otter 🦦</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪨</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;700&family=Noto+Sans+Tifinagh&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --color-cream: #f1cea8;
+            --color-brown-light: #634331;
+            --color-brown-med: #302118;
+            --color-brown-dark: #170901;
+            --color-atol-blue: #008391;
+            --color-eye-deep: #113b43;
+            --bg-color: var(--color-brown-dark);
+            --card-bg: rgba(23, 9, 1, 0.88); 
+            --accent-color: var(--color-atol-blue);
+            --text-main: var(--color-cream);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Lexend', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 200vh; 
+        }
+
+        /* --- SISTEMA DE FONDOS EN CAPAS --- */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+            transition: opacity 0.1s linear;
+        }
+
+        #layer1 { background-image: url('fondo.jpg'); z-index: -3; }
+        #layer2 { background-image: url('fondo2.jpg'); opacity: 0; z-index: -2; }
+        #layer3 { background-image: url('fondo3.jpg'); opacity: 0; z-index: -1; }
+
+        /* --- BOTONES FLOTANTES --- */
+        .controls-container {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-switch, .audio-switch {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            color: var(--color-cream);
+            padding: 8px 12px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Lexend', sans-serif;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .audio-switch { width: 45px; justify-content: center; padding: 8px 0; }
+        .lang-switch img { width: 18px; height: auto; border-radius: 2px; }
+
+        /* --- HEADER ARTÍSTICO --- */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 30px rgba(0, 131, 145, 0.5);
+            object-fit: cover;
+            z-index: 3;
+            background-color: var(--color-brown-light);
+        }
+
+        .header-shape-container {
+            margin-top: -60px;
+            padding: 80px 30px 40px 30px;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 60% 40% 70% 30% / 30% 70% 30% 70%;
+            border: 2px solid rgba(0, 131, 145, 0.3);
+            width: 100%;
+            max-width: 450px;
+            z-index: 1;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+        }
+
+        h1 { font-size: 2.5rem; color: var(--color-cream); margin-bottom: 5px; }
+        .subtitle { font-size: 1rem; letter-spacing: 1px; opacity: 0.9; }
+
+        /* --- CONTENEDORES --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 30px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(241, 206, 168, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            width: 100%;
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 12px;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 8px;
+        }
+
+        /* --- DESPLEGABLE DE HOBBIES (RESPONSIVE FIX) --- */
+        .hobbies-dropdown {
+            width: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 131, 145, 0.3);
+        }
+
+        .hobbies-trigger {
+            background: var(--color-eye-deep);
+            color: var(--color-cream);
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hobbies-content {
+            max-height: 0;
+            overflow-y: auto; /* Permite scroll interno si es necesario */
+            transition: max-height 0.5s ease-out;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .hobbies-content.open {
+            max-height: 80vh; /* Limita altura para no romper el layout */
+            padding: 20px;
+        }
+
+        .hobbies-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .hobby-tag {
+            background: var(--color-brown-med);
+            color: var(--color-cream);
+            padding: 8px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(241, 206, 168, 0.1);
+            font-size: 0.85rem;
+            white-space: normal; /* Permite saltar de línea en móviles muy pequeños */
+            text-align: center;
+        }
+
+        .hobby-category-title {
+            width: 100%;
+            text-align: center;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            margin: 20px 0 10px 0;
+            border-bottom: 1px solid rgba(0, 131, 145, 0.2);
+            padding-bottom: 5px;
+        }
+
+        /* --- FURSONA --- */
+        .fursona-spec {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 25px;
+            border-radius: 20px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .fursona-description p { margin-bottom: 15px; }
+
+        .feature-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 4px;
+            padding: 6px 14px;
+            background: var(--color-brown-med);
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        /* --- CONTACTO --- */
+        .contact-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .contact-link:hover { color: var(--color-cream); transform: translateY(-2px); }
+
+        .footer-icons {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            letter-spacing: 10px;
+            text-align: center;
+            padding: 10px 0;
+            word-break: break-all;
+        }
+
+        /* --- RESPONSIVE OPTIMIZADO --- */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .card { padding: 15px; }
+            .profile-img { width: 120px; height: 120px; }
+            .header-shape-container { padding: 60px 15px 25px 15px; }
+            .controls-container { top: 10px; right: 10px; }
+            .lang-switch { padding: 6px 10px; font-size: 0.75rem; }
+            .footer-icons { font-size: 1.3rem; letter-spacing: 5px; }
+            .hobby-tag { font-size: 0.75rem; padding: 6px 10px; }
+        }
+
+        #riverCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        strong { color: var(--accent-color); }
+        p { text-shadow: 1px 1px 2px black; }
+    </style>
+</head>
+<body>
+
+    <div id="layer1" class="bg-layer"></div>
+    <div id="layer2" class="bg-layer"></div>
+    <div id="layer3" class="bg-layer"></div>
+
+    <div class="controls-container">
+        <button class="audio-switch" onclick="toggleAudio()" title="Reproducir Tema Musical">
+            <i id="audioIcon" class="fas fa-volume-mute"></i>
+        </button>
+        <button class="lang-switch" onclick="toggleLang()" id="langBtn">
+            <span id="langText">EN</span>
+            <img id="langFlag" src="https://flagcdn.com/w40/au.png" alt="Australia Flag">
+        </button>
+    </div>
+
+    <audio id="bgAudio" loop>
+        <source src="Underwater Theme Complete.mp3" type="audio/mpeg">
+    </audio>
+    
+    <canvas id="riverCanvas"></canvas>
+
+    <div class="container">
+        <header>
+            <img src="avatar.jpeg" alt="ⵉⴽⵊ" class="profile-img">
+            <div class="header-shape-container">
+                <h1>ⵉⴽⵊ</h1>
+                <p class="subtitle">🦘 Anthrorigen Otter 🦦</p>
+            </div>
+        </header>
+
+        <section class="card">
+            <h2 class="i18n" data-es="<i class='fas fa-water'></i> Introducción" data-en="<i class='fas fa-water'></i> Introduction">
+                <i class="fas fa-water"></i> Introducción
+            </h2>
+            <p class="i18n" 
+               data-es="Hola, soy <strong>Erizigh</strong> pero puedes llamarme <strong>Eri</strong> (Es mi nombre real). Soy de España, en concreto, de <strong>Gran Canaria, Islas Canarias</strong>." 
+               data-en="Hi, I'm <strong>Erizigh</strong> but you can call me <strong>Eri</strong> (It's my real name). I'm from Spain, specifically from <strong>Gran Canaria, Canary Islands</strong>.">
+                 Hola, soy <strong>Erizigh</strong> pero puedes llamarme <strong>Eri</strong> (Es mi nombre real). Soy de España, en concreto, de <strong>Gran Canaria, Islas Canarias</strong>.
+            </p>
+            <p style="margin-top: 15px;" class="i18n"
+               data-es="Soy una persona <strong>tranquila pero activa</strong> (No me gusta el aburrimiento) con ganas de aprender y hacer cosas, siempre que las condiciones ayuden a ello."
+               data-en="I am a <strong>calm yet active</strong> person (I don't like boredom) with a desire to learn and do things, as long as conditions allow.">
+                 Soy una persona <strong>tranquila pero activa</strong> (No me gusta el aburrimiento) con ganas de aprender y hacer cosas, siempre que las condiciones ayuden a ello.
+            </p>
+            <p style="margin-top: 15px;" class="i18n"
+               data-es="Me gusta socializar, compartir mis gustos y viceversa, siempre y cuando haya algo en común/interés en ello. También soy un poco <strong>aventurero</strong> por mis hobbies y por aprender idiomas nuevos, aunque solamente sepa Español y un poco de Inglés. Me gustaría mejorar mi idioma extranjero."
+               data-en="I enjoy socializing and sharing interests, provided there's a common connection. I'm also a bit <strong>adventurous</strong> due to my hobbies and my interest in learning new languages, although I only speak Spanish and a bit of English for now. I'd love to improve my foreign language skills.">
+                 Me gusta socializar, compartir mis gustos y viceversa, siempre y cuando haya algo en común/interés en ello. También soy un poco <strong>aventurero</strong> por mis hobbies y por aprender idiomas nuevos, aunque solamente sepa Español y un poco de Inglés. Me gustaría mejorar mi idioma extranjero.
+            </p>
+            <p style="margin-top: 15px;" class="i18n"
+               data-es="Como ser humano que soy, no todo es bueno; también tengo muchos defectos y ando mejorando siempre para eliminarlos o, al menos, minimizarlos; pero no le doy protagonismo. <strong>Siempre positivo.</strong>"
+               data-en="As a human being, not everything is perfect; I also have many flaws and I'm always working to eliminate or at least minimize them, but I don't let them take center stage. <strong>Always positive.</strong>">
+                 Como ser humano que soy, no todo es bueno; también tengo muchos defectos y ando mejorando siempre para eliminarlos o, al menos, minimizarlos; pero no le doy protagonismo. <strong>Siempre positivo.</strong>
+            </p>
+        </section>
+
+        <section class="card">
+            <h2 class="i18n" data-es="<i class='fas fa-compass'></i> Hobbies / Aficiones" data-en="<i class='fas fa-compass'></i> Hobbies / Interests">
+                <i class="fas fa-compass"></i> Hobbies / Aficiones
+            </h2>
+            
+            <div class="hobbies-dropdown">
+                <div class="hobbies-trigger" onclick="toggleHobbies()">
+                    <span class="i18n" data-es="Ver todo" data-en="View all">Ver todo</span>
+                    <i class="fas fa-chevron-down" id="hobby-arrow"></i>
+                </div>
+                <div class="hobbies-content" id="hobbies-list">
+                    <div class="hobbies-grid">
+                        <div class="hobby-category-title i18n" data-es="⛰️ Naturaleza y Aire Libre 🌲" data-en="⛰️ Nature & Outdoors 🌲">⛰️ Naturaleza y Aire Libre 🌲</div>
+                        <span class="hobby-tag i18n" data-es="⛰️ Senderismo" data-en="⛰️ Walking Nature Trails">⛰️ Senderismo</span>
+                        <span class="hobby-tag i18n" data-es="🌲 Paseos por el bosque" data-en="🌲 Walks in the forest">🌲 Paseos por el bosque</span>
+                        <span class="hobby-tag i18n" data-es="🏔️ Trekking" data-en="🏔️ Trekking">🏔️ Trekking</span>
+                        <span class="hobby-tag i18n" data-es="🧗 Escalada" data-en="🧗 Rock climbing">🧗 Escalada</span>
+                        <span class="hobby-tag i18n" data-es="⛺ Acampada" data-en="⛺ Camping">⛺ Acampada</span>
+                        <span class="hobby-tag i18n" data-es="🗺️ Explorar nuevos lugares" data-en="🗺️ Exploring New Places">🗺️ Explorar nuevos lugares</span>
+                        <span class="hobby-tag i18n" data-es="🏙️ Exploración Urbana" data-en="🏙️ Urban Exploration">🏙️ Exploración Urbana</span>
+                        <span class="hobby-tag i18n" data-es="📍 Geocaching" data-en="📍 Geocaching">📍 Geocaching</span>
+                        <span class="hobby-tag i18n" data-es="🌋 Vulcanología" data-en="🌋 Volcanology">🌋 Vulcanología</span>
+                        <span class="hobby-tag i18n" data-es="🚲 Parkour" data-en="🚲 Parkour">🚲 Parkour</span>
+                        <span class="hobby-tag i18n" data-es="🌍 Geografía" data-en="🌍 Geography">🌍 Geografía</span>
+
+                        <div class="hobby-category-title i18n" data-es="🌊 Agua 🦦" data-en="🌊 Water 🦦">🌊 Agua 🦦</div>
+                        <span class="hobby-tag i18n" data-es="🏊 Natación / Apnea" data-en="🏊 Swimming / Freediving">🏊 Natación / Apnea</span>
+                        <span class="hobby-tag i18n" data-es="🤿 Snorkel" data-en="🤿 Snorkeling">🤿 Snorkel</span>
+                        <span class="hobby-tag i18n" data-es="🚣 Kayak / Canoa" data-en="🚣 Kayaking / Canoeing">🚣 Kayak / Canoa</span>
+                        <span class="hobby-tag i18n" data-es="🧗‍♂️ Barranquismo" data-en="🧗‍♂️ Canyoning">🧗‍♂️ Barranquismo</span>
+                        <span class="hobby-tag i18n" data-es="🌊 Surf / Windsurf" data-en="🌊 Surfing / Windsurfing">🌊 Surf / Windsurf</span>
+                        <span class="hobby-tag i18n" data-es="⛵ Vela / Paddle Surf" data-en="⛵ Sailing / Paddle Surf">⛵ Vela / Paddle Surf</span>
+                        <span class="hobby-tag i18n" data-es="🏄 Foil surf / Wingfoiling" data-en="🏄 Foil surf / Wingfoiling">🏄 Foil surf / Wingfoiling</span>
+                        <span class="hobby-tag i18n" data-es="🪁 Kitesurf" data-en="🪁 Kitesurfing">🪁 Kitesurf</span>
+                        <span class="hobby-tag i18n" data-es="🛶 Rafting" data-en="🛶 Rafting">🛶 Rafting</span>
+                        <span class="hobby-tag i18n" data-es="🐚 Oceanografía" data-en="🐚 Oceanography">🐚 Oceanografía</span>
+
+                        <div class="hobby-category-title i18n" data-es="💪 Actividad y Deporte 🥋" data-en="💪 Activity & Sports 🥋">💪 Actividad y Deporte 🥋</div>
+                        <span class="hobby-tag i18n" data-es="🏃 Correr" data-en="🏃 Running">🏃 Correr</span>
+                        <span class="hobby-tag i18n" data-es="💪 Gimnasio" data-en="💪 Gym">💪 Gimnasio</span>
+                        <span class="hobby-tag i18n" data-es="🕺 Aprender a bailar" data-en="🕺 Learn to dance">🕺 Aprender a bailar</span>
+                        <span class="hobby-tag i18n" data-es="🥋 Bujinkan / Artes Marciales" data-en="🥋 Bujinkan / Martial Arts">🥋 Bujinkan / Artes Marciales</span>
+                        <span class="hobby-tag i18n" data-es="🔗 Vía ferrata / Rapel" data-en="🔗 Via ferrata / Rappel">🔗 Vía ferrata / Rapel</span>
+                        <span class="hobby-tag i18n" data-es="🧭 Orientación" data-en="🧭 Orienteering">🧭 Orientación</span>
+
+                        <div class="hobby-category-title i18n" data-es="🎨 Creatividad y Social 🤝" data-en="🎨 Creative & Social 🤝">🎨 Creatividad y Social 🤝</div>
+                        <span class="hobby-tag i18n" data-es="🎨 Arte / Dibujo" data-en="🎨 Art / Drawing">🎨 Arte / Dibujo</span>
+                        <span class="hobby-tag i18n" data-es="📸 Fotografía" data-en="📸 Photography">📸 Fotografía</span>
+                        <span class="hobby-tag i18n" data-es="🛠️ Manualidades / Paracord" data-en="🛠️ Crafting / Paracord">🛠️ Manualidades / Paracord</span>
+                        <span class="hobby-tag i18n" data-es="🎵 Música" data-en="🎵 Music">🎵 Música</span>
+                        <span class="hobby-tag i18n" data-es="🎮 Juegos Coop / VRChat" data-en="🎮 Coop Games / VRChat">🎮 Juegos Coop / VRChat</span>
+                        <span class="hobby-tag i18n" data-es="🤝 Conocer gente nueva" data-en="🤝 Meeting new people">🤝 Conocer gente nueva</span>
+                        <span class="hobby-tag i18n" data-es="🗣️ Aprender idiomas" data-en="🗣️ Language learning">🗣️ Aprender idiomas</span>
+                        <span class="hobby-tag i18n" data-es="💡 Aprender cosas nuevas" data-en="💡 Learning new things">💡 Aprender cosas nuevas</span>
+
+                        <div class="hobby-category-title i18n" data-es="🐾 Furry e Identidad ✨" data-en="🐾 Furry & Identity ✨">🐾 Furry e Identidad ✨</div>
+                        <span class="hobby-tag i18n" data-es="🐾 Cosas Furry" data-en="🐾 Furry Stuff">🐾 Cosas Furry</span>
+                        <span class="hobby-tag i18n" data-es="🐺 Hombres lobo" data-en="🐺 Werewolves / Wereanimals">🐺 Hombres lobo</span>
+                        <span class="hobby-tag i18n" data-es="✨ Therians / Otherkins" data-en="✨ Therians / Otherkins">✨ Therians / Otherkins</span>
+                        <span class="hobby-tag i18n" data-es="🎭 Quadrobics" data-en="🎭 Quadrobics">🎭 Quadrobics</span>
+                        <span class="hobby-tag i18n" data-es="💫 Transformaciones (TF) / Cambiaformas" data-en="💫 Transformations (TF) / Shapeshifters">💫 Transformations (TF) / Cambiaformas</span>
+                        <span class="hobby-tag i18n" data-es="🦦 Nutrias" data-en="🦦 Otters / Sea Otters">🦦 Nutrias</span>
+                        <span class="hobby-tag i18n" data-es="🦘 Canguros / Raptores" data-en="🦘 Kangaroos / Raptors">🦘 Canguros / Raptores</span>
+                        <span class="hobby-tag i18n" data-es="☯️ Renamons / Hurones" data-en="☯️ Renamons / Ferrets">☯️ Renamons / Hurones</span>
+                        <span class="hobby-tag i18n" data-es="🖼️ Fursonas / Truesonas" data-en="🖼️ Fursonas / Truesonas">🖼️ Fursonas / Truesonas</span>
+                        <span class="hobby-tag i18n" data-es="🪡 Crear Fursuits" data-en="🪡 Fursuit making">🪡 Crear Fursuits</span>
+
+                        <div class="hobby-category-title i18n" data-es="🌀 Otros 🌍" data-en="🌀 Others 🌍">🌀 Otros 🌍</div>
+                        <span class="hobby-tag i18n" data-es="🧠 Salud Mental" data-en="🧠 Mental Health">🧠 Salud Mental</span>
+                        <span class="hobby-tag i18n" data-es="☁️ Meteorología" data-en="☁️ Weather">☁️ Meteorología</span>
+                        <span class="hobby-tag i18n" data-es="🌌 Experiencias sobrenaturales" data-en="🌌 Supernatural experiences">🌌 Experiencias sobrenaturales</span>
+                        <span class="hobby-tag i18n" data-es="🏝️ Islas Canarias" data-en="🏝️ Canary Islands">🏝️ Islas Canarias</span>
+                        <span class="hobby-tag i18n" data-es="🗺️ Openstreetmap" data-en="🗺️ Openstreetmap">🗺️ Openstreetmap</span>
+
+                        <div class="hobby-category-title i18n" data-es="✨ ¡Y muchos más!" data-en="✨ And many more!">✨ ¡Y muchos más!</div>
+                        <span class="hobby-tag i18n" data-es="..." data-en="...">...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2 class="i18n" data-es="<i class='fas fa-dna'></i> Fursona/Truesona" data-en="<i class='fas fa-dna'></i> Fursona/Truesona">
+                <i class="fas fa-dna"></i> Fursona/Truesona
+            </h2>
+            <div class="fursona-spec">
+                <div class="fursona-description i18n" 
+                    data-es="<p>Mi especie es una <strong>nutria híbrida con canguro</strong> con varias pinceladas de otras especies; pelaje de color marrón oscuro por fuera y marrón claro por dentro, con una bolsa de canguro y rayas por todo el cuerpo estilo jurásico/aborigen en <strong>Azul Atolón</strong> que brillan a voluntad en cualquier ecosistema.</p>
+                            <p>Soy un <strong>cambiaformas / TF (TransFur) / Wereanimal</strong>. Me defino así porque me gusta adaptarme a cualquier entorno y situación en la vida, disfrutando de ella lo máximo posible. Vamos, un <strong>'todoterreno'</strong>.</p>
+                            <p>Considero esto como un estilo de vida diario y un culto muy bonito con una <strong>conexión con la naturaleza muy intensa</strong>, que me aporta una paz interior que siempre sigo cultivando.</p>
+                            <p>Mi representación de mi fursona/truesona <strong>soy yo mismo en la vida real</strong> y viceversa (salvo rasgos obvios). Intento acercarme lo máximo posible, siendo humilde dentro de mis posibilidades.</p>"
+                    data-en="<p>My species is an <strong>otter-kangaroo hybrid</strong> with touches of other species; deep brown fur on the outside and light brown on the inside, featuring a kangaroo pouch and <strong>Atoll Blue</strong> jurassic/aboriginal style stripes across the body that glow at will in any ecosystem.</p>
+                            <p>I am a <strong>shapeshifter / TF (TransFur) / Wereanimal</strong>. I define myself this way because I love adapting to any environment and situation in life, enjoying it to the fullest. Basically, an <strong>'all-rounder'</strong>.</p>
+                            <p>I see this as a daily lifestyle and a beautiful tribute to life, with an <strong>intense connection to nature</strong> that brings me inner peace.</p>
+                            <p>My fursona/truesona <strong>is me in real life</strong> and vice versa (obvious traits aside). I try to bridge that gap as much as possible, staying humble within my reach.</p>">
+                    </div>
+                
+                <div style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center;">
+                    <span class="feature-tag i18n" data-es="☯️ Cambiaformas" data-en="☯️ Shapeshifter">☯️ Cambiaformas</span>
+                    <span class="feature-tag i18n" data-es="🪶 Therian Furry" data-en="🪶 Therian Furry">🪶 Therian Furry</span>
+                    <span class="feature-tag i18n" data-es="🐾 Wereanimal" data-en="🐾 Wereanimal">🐾 Wereanimal</span>
+                    <span class="feature-tag i18n" data-es="🏔️ Todoterreno 4x4" data-en="🏔️ All-Terrain 4x4">🏔️ Todoterreno 4x4</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="card" style="text-align: center;">
+            <p class="i18n" 
+               data-es="Si te apetece saludar, hablar o compartir algo, estaré en:" 
+               data-en="If you want to say hi, talk or share something, I'll be at:">
+                 Si te apetece saludar, hablar o compartir algo, estaré en:
+            </p>
+            <a href="https://t.me/Erizigh" target="_blank" class="contact-link">
+                <i class="fab fa-telegram"></i> Telegram
+            </a>
+        </section>
+
+        <section class="card" style="padding: 20px;">
+            <div class="footer-icons">ⵣ ✌🏾 🦘 🦦 🌊 🤙🏾 ⵥ</div>
+        </section>
+
+    </div>
+
+    <script>
+        // --- LÓGICA DE FONDOS ---
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const l2 = document.getElementById('layer2');
+            const l3 = document.getElementById('layer3');
+
+            if (scrollPercent <= 0.5) {
+                l2.style.opacity = (scrollPercent * 2);
+                l3.style.opacity = 0;
+            } else {
+                l2.style.opacity = 1;
+                l3.style.opacity = (scrollPercent - 0.5) * 2;
+            }
+        });
+
+        // --- LÓGICA DE AUDIO ---
+        const bgAudio = document.getElementById('bgAudio');
+        const audioIcon = document.getElementById('audioIcon');
+        bgAudio.volume = 0.5;
+
+        function toggleAudio() {
+            if (bgAudio.paused) {
+                bgAudio.play().then(() => {
+                    audioIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+                }).catch(error => console.log("Interacción requerida:", error));
+            } else {
+                bgAudio.pause();
+                audioIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+            }
+        }
+
+        // --- LÓGICA DE HOBBIES ---
+        function toggleHobbies() {
+            const list = document.getElementById('hobbies-list');
+            const arrow = document.getElementById('hobby-arrow');
+            list.classList.toggle('open');
+            arrow.style.transform = list.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // --- LÓGICA DE IDIOMA ---
+        let currentLang = localStorage.getItem('prefLang') || 'es';
+        function updateContent() {
+            document.querySelectorAll('.i18n').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+            const btnText = document.getElementById('langText');
+            const btnFlag = document.getElementById('langFlag');
+            if (currentLang === 'es') {
+                btnText.innerText = 'EN';
+                btnFlag.src = 'https://flagcdn.com/w40/au.png';
+            } else {
+                btnText.innerText = 'ES';
+                btnFlag.src = 'https://flagcdn.com/w40/es.png';
+            }
+            localStorage.setItem('prefLang', currentLang);
+        }
+        function toggleLang() {
+            currentLang = currentLang === 'es' ? 'en' : 'es';
+            updateContent();
+        }
+        updateContent();
+
+        // --- CANVAS DE PARTÍCULAS ---
+        const canvas = document.getElementById('riverCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const particles = [];
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * -0.5 - 0.1;
+                this.opacity = Math.random() * 0.4 + 0.1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.fillStyle = '#f1cea8';
+                ctx.globalAlpha = this.opacity;
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y < -10) this.y = canvas.height + 10;
+                this.draw();
+            }
+        }
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => p.update());
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        animate();
+    </script>
+</body>
+</html>
